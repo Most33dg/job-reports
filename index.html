@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Report — May 31, 2026 — Malaka O.</title>
+<style>
+:root {
+  --bg:#0a0a0f; --bg2:#12121a; --bg3:#1a1a26; --border:#2a2a40;
+  --accent:#7c6aff; --accent2:#ff6b6b; --accent3:#00d4aa;
+  --text:#e8e8f0; --muted:#8888aa; --hover:#1e1e2e;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%);padding:50px 40px 36px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(124,106,255,.08) 0%,transparent 70%);pointer-events:none;}
+.header h1{font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,#fff 0%,#c4b5ff 50%,#7c6aff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+.header p{color:var(--muted);font-size:.95rem;max-width:600px;margin:0 auto 20px;}
+.hstats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.stat{background:rgba(124,106,255,.1);border:1px solid rgba(124,106,255,.3);border-radius:12px;padding:10px 20px;}
+.stat .num{font-size:1.4rem;font-weight:700;color:var(--accent);}
+.stat .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+/* NAV */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:200;display:flex;align-items:center;gap:0;overflow-x:auto;}
+.nav a{color:var(--muted);text-decoration:none;padding:14px 14px;font-size:.83rem;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;flex-shrink:0;}
+.nav a:hover,.nav a.active{color:var(--text);border-bottom-color:var(--accent);}
+.nav-search{margin-left:auto;padding:6px 0;position:relative;flex-shrink:0;}
+.nav-search input{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:18px;color:var(--text);font-size:.8rem;padding:6px 32px 6px 12px;width:200px;outline:none;transition:all .2s;font-family:inherit;}
+.nav-search input:focus{border-color:var(--accent);width:260px;background:rgba(124,106,255,.08);}
+.nav-search input::placeholder{color:var(--muted);}
+.nav-search-icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.8rem;pointer-events:none;}
+
+/* CONTAINER */
+.container{max-width:1300px;margin:0 auto;padding:36px 40px;}
+.section{margin-bottom:72px;}
+.section-title{font-size:1.4rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.section-title .num{background:var(--accent);color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:800;flex-shrink:0;}
+.section-desc{color:var(--muted);margin-bottom:24px;font-size:.88rem;}
+.divider{height:1px;background:var(--border);margin-bottom:72px;}
+
+/* ROADMAP */
+.roadmap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.rm-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;transition:all .3s;cursor:default;}
+.rm-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 24px rgba(124,106,255,.15);}
+.rm-num{font-size:2.6rem;font-weight:900;opacity:.1;position:absolute;top:12px;right:16px;line-height:1;}
+.rm-badge{display:inline-block;background:linear-gradient(135deg,var(--accent),#5a4aff);color:#fff;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
+.rm-card h3{font-size:.95rem;margin-bottom:6px;}
+.rm-card p{font-size:.8rem;color:var(--muted);line-height:1.5;}
+
+/* DO THESE TODAY */
+.today-box{background:linear-gradient(135deg,rgba(0,212,170,.07) 0%,rgba(124,106,255,.07) 100%);border:1px solid rgba(0,212,170,.3);border-radius:14px;padding:24px 28px;}
+.today-box h3{font-size:.88rem;font-weight:800;color:var(--accent3);margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
+.today-item{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.today-item:last-child{border-bottom:none;padding-bottom:0;}
+.today-rank{background:var(--accent3);color:#000;font-size:.75rem;font-weight:800;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.today-info h4{font-size:.88rem;font-weight:700;margin-bottom:3px;}
+.today-info p{font-size:.78rem;color:var(--muted);margin-bottom:6px;line-height:1.4;}
+.today-apply{display:inline-block;background:var(--accent3);color:#000;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:6px;text-decoration:none;transition:opacity .2s;}
+.today-apply:hover{opacity:.85;}
+.pay-green{display:inline-block;background:rgba(0,212,170,.15);border:1px solid rgba(0,212,170,.3);color:var(--accent3);font-size:.7rem;font-weight:700;padding:1px 7px;border-radius:5px;margin-left:6px;}
+
+/* JOB CARDS — Jack Roberts style: left badge panel + right content */
+.jobs-list{display:flex;flex-direction:column;gap:20px;}
+.job-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;transition:all .3s;}
+.job-card:hover{border-color:rgba(124,106,255,.4);box-shadow:0 6px 24px rgba(0,0,0,.3);}
+.job-card.top{border-color:rgba(0,212,170,.3);}
+.job-card.expired{border-color:rgba(255,107,107,.2);opacity:.85;}
+
+/* LEFT PANEL */
+.job-left{width:180px;flex-shrink:0;background:var(--bg3);border-right:1px solid var(--border);padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;}
+.job-rank{font-size:2rem;font-weight:900;color:var(--accent);line-height:1;}
+.job-rank.green{color:var(--accent3);}
+.job-rank.expired-color{color:#ff6b6b;}
+.jbadge{font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:8px;text-transform:uppercase;white-space:nowrap;}
+.jbadge-pay{background:rgba(0,212,170,.15);border:1px solid rgba(0,212,170,.3);color:var(--accent3);}
+.jbadge-platform{background:rgba(124,106,255,.12);border:1px solid rgba(124,106,255,.25);color:#b0a0ff;}
+.jbadge-expired{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.25);color:#ff8888;}
+.jbadge-top{background:rgba(0,212,170,.2);border:1px solid rgba(0,212,170,.4);color:var(--accent3);}
+.jbadge-source{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);}
+
+/* RIGHT PANEL */
+.job-right{flex:1;padding:18px 22px;min-width:0;}
+.job-title-link{font-size:1rem;font-weight:700;color:var(--text);text-decoration:none;line-height:1.3;display:block;margin-bottom:3px;}
+.job-title-link:hover{color:var(--accent);}
+.job-company{font-size:.82rem;color:var(--accent3);font-weight:600;margin-bottom:10px;}
+.job-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.jmeta{font-size:.72rem;color:var(--muted);background:var(--bg3);border:1px solid var(--border);padding:2px 8px;border-radius:5px;}
+
+/* DESCRIPTION TOGGLE */
+.job-desc-preview{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.desc-toggle{background:none;border:1px solid var(--border);color:var(--muted);font-size:.78rem;padding:5px 12px;border-radius:6px;cursor:pointer;width:100%;text-align:left;transition:all .2s;font-family:inherit;margin-bottom:8px;}
+.desc-toggle:hover{border-color:var(--accent);color:var(--accent);}
+.desc-full{display:none;font-size:.82rem;color:var(--muted);line-height:1.7;white-space:pre-wrap;background:var(--bg3);border-radius:8px;padding:14px;margin-bottom:10px;border:1px solid var(--border);}
+.desc-full.open{display:block;}
+
+/* WHY IT FITS */
+.why-toggle{background:none;border:1px solid rgba(124,106,255,.25);color:var(--accent);font-size:.76rem;padding:4px 10px;border-radius:6px;cursor:pointer;transition:all .2s;font-family:inherit;margin-bottom:8px;}
+.why-toggle:hover{background:rgba(124,106,255,.08);}
+.why-box{display:none;font-size:.82rem;color:#c0e0ff;line-height:1.6;background:rgba(124,106,255,.06);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 8px 8px 0;margin-bottom:10px;}
+.why-box.open{display:block;}
+
+/* SKILLS TAGS */
+.skills-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.skill-tag{background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:.72rem;padding:2px 8px;border-radius:5px;}
+
+/* APPLY BUTTON */
+.apply-btn{display:inline-block;background:linear-gradient(135deg,var(--accent),#5a4aff);color:#fff;text-decoration:none;padding:8px 20px;border-radius:8px;font-size:.82rem;font-weight:700;transition:opacity .2s;}
+.apply-btn:hover{opacity:.85;}
+.apply-btn.green-btn{background:linear-gradient(135deg,#00c49a,#009a78);}
+.apply-btn.red-btn{background:linear-gradient(135deg,#aa4444,#883333);}
+.apply-url{font-size:.72rem;color:var(--muted);margin-left:10px;word-break:break-all;}
+
+/* UPWORK ACCOUNT */
+.account-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.account-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.account-card h4{font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+.account-card ul{list-style:none;padding:0;}
+.account-card li{font-size:.82rem;color:var(--muted);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.5;}
+.account-card li:last-child{border-bottom:none;}
+.account-card li strong{color:var(--text);}
+
+/* FILTERED OUT */
+.filtered-list{display:flex;flex-direction:column;gap:8px;}
+.filtered-item{background:rgba(255,107,107,.05);border:1px solid rgba(255,107,107,.18);border-radius:8px;padding:9px 14px;font-size:.8rem;color:#ff9999;}
+.filtered-item strong{color:#ffbbbb;}
+
+/* RESOURCES */
+.resource-card{background:var(--bg2);border:1px solid rgba(234,179,8,.25);border-radius:12px;padding:18px 22px;margin-bottom:14px;}
+.resource-card h4{font-size:.82rem;font-weight:700;color:#eab308;margin-bottom:8px;}
+.resource-card p{font-size:.82rem;color:var(--muted);line-height:1.5;}
+.resource-code{font-family:'Courier New',monospace;background:rgba(234,179,8,.1);border:1px solid rgba(234,179,8,.3);color:#eab308;padding:3px 10px;border-radius:6px;font-size:.85rem;font-weight:700;}
+
+/* PLATFORM NOTE */
+.platform-note{background:rgba(234,179,8,.05);border:1px solid rgba(234,179,8,.18);border-radius:10px;padding:14px 18px;font-size:.8rem;color:#e0c060;line-height:1.7;}
+
+/* STATUS DOT */
+.status-bar{background:var(--bg2);border:1px solid rgba(0,212,170,.3);border-radius:10px;padding:14px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.sdot{width:9px;height:9px;border-radius:50%;background:var(--accent3);box-shadow:0 0 7px rgba(0,212,170,.6);animation:pulse 2s infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.stext{font-size:.88rem;font-weight:700;color:var(--accent3);}
+.sdetail{font-size:.78rem;color:var(--muted);margin-left:auto;}
+
+/* SEARCH HIDDEN */
+.search-hidden{display:none;}
+
+/* COLLAPSED CARD — show title only by default */
+.job-company,
+.job-meta,
+.job-desc-preview,
+.desc-toggle,
+.desc-full,
+.why-toggle,
+.why-box,
+.skills-row,
+.apply-btn,
+.apply-url { display:none; }
+
+/* EXPANDED CARD — show everything */
+.job-card.expanded .job-company { display:block; }
+.job-card.expanded .job-meta { display:flex; }
+.job-card.expanded .job-desc-preview { display:block; }
+.job-card.expanded .desc-toggle { display:block; }
+.job-card.expanded .why-toggle { display:inline-block; }
+.job-card.expanded .skills-row { display:flex; }
+.job-card.expanded .apply-btn { display:inline-block; }
+.job-card.expanded .apply-url { display:inline; }
+
+/* TITLE CLICKABLE STYLE */
+.job-title-link {
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.job-title-link::after {
+  content:'▼';
+  font-size:.7rem;
+  color:var(--muted);
+  flex-shrink:0;
+  transition:transform .25s;
+}
+.job-card.expanded .job-title-link::after {
+  content:'▲';
+  color:var(--accent);
+}
+.job-title-link:hover::after { color:var(--accent); }
+
+/* GROUP HEADER */
+.group-header{display:flex;align-items:center;gap:14px;margin:40px 0 20px;}
+.group-label{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:5px 14px;font-size:.76rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
+.group-line{flex:1;height:1px;background:var(--border);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Job Report — May 31, 2026</h1>
+  <p>Live scan — Malaka O. — Montreal, Quebec — Bilingual FR/EN — LinkedIn · Upwork · ProtonMail</p>
+  <div class="hstats">
+    <div class="stat"><div class="num">32</div><div class="lbl">Jobs Found</div></div>
+    <div class="stat"><div class="num">8</div><div class="lbl">Top Picks</div></div>
+    <div class="stat"><div class="num">53</div><div class="lbl">Upwork Connects</div></div>
+    <div class="stat"><div class="num">3</div><div class="lbl">Sources</div></div>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#roadmap">Roadmap</a>
+  <a href="#today">Do These Today</a>
+  <a href="#linkedin">LinkedIn</a>
+  <a href="#upwork">Upwork</a>
+  <a href="#email-jobs">From Email</a>
+  <a href="#filtered">Filtered Out</a>
+  <a href="#resources">Resources</a>
+  <div class="nav-search">
+    <input type="text" id="searchInput" placeholder="Search jobs..." oninput="filterJobs(this.value)">
+    <span class="nav-search-icon">&#128269;</span>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ROADMAP -->
+<section class="section" id="roadmap">
+  <div class="section-title"><span class="num">*</span> Roadmap — How To Use This Report</div>
+  <p class="section-desc">Everything you need is directly on this page. No PDFs to open. Click any Apply button to go straight to the job.</p>
+  <div class="roadmap-grid">
+    <div class="rm-card">
+      <div class="rm-num">1</div>
+      <div class="rm-badge">Daily Scan</div>
+      <h3>Runs Every Night at 10:30 PM</h3>
+      <p>The scanner searches 15 platforms automatically each night and a new HTML report like this one is created with fresh job listings.</p>
+    </div>
+    <div class="rm-card">
+      <div class="rm-num">2</div>
+      <div class="rm-badge">Platform Results</div>
+      <h3>Real Jobs Directly on This Page</h3>
+      <p>Jobs from LinkedIn, Upwork, and your ProtonMail inbox are all below. Full descriptions, pay rates, and clickable Apply buttons — no PDF needed.</p>
+    </div>
+    <div class="rm-card">
+      <div class="rm-num">3</div>
+      <div class="rm-badge">Do These Today</div>
+      <h3>Top 8 — Apply Right Now</h3>
+      <p>Scroll to the green section below. These are the 8 best jobs to apply to today, ranked by pay and fit. Each has a direct Apply button.</p>
+    </div>
+    <div class="rm-card">
+      <div class="rm-num">4</div>
+      <div class="rm-badge">Read Each Card</div>
+      <h3>Click to Expand Any Job</h3>
+      <p>Each job card has a "Show Full Description" button. Click it to see the complete job posting. Click "Why This Fits You" to see the reason it matches your profile.</p>
+    </div>
+    <div class="rm-card">
+      <div class="rm-num">5</div>
+      <div class="rm-badge">Resources</div>
+      <h3>Free Tools and Promo Codes</h3>
+      <p>Scroll to the Resources section at the bottom. Voices.com is offering a free VO class with code FREESTART — valid for a limited time.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DO THESE TODAY -->
+<section class="section" id="today">
+  <div class="section-title"><span class="num">!</span> Do These Today</div>
+  <p class="section-desc">Apply to these first. Ranked by pay and how fast you can start and get paid.</p>
+  <div class="today-box">
+    <h3>Apply to These Right Now</h3>
+
+    <div class="today-item">
+      <div class="today-rank">1</div>
+      <div class="today-info">
+        <h4>Welo Data — Canadian French Culture Expert <span class="pay-green">$40 USD/hr — STARTS NOW</span></h4>
+        <p>4 weeks, 20 hrs/week, immediate start. Rate AI-generated Canadian French. No degree. Pays fast.</p>
+        <a class="today-apply" href="https://www.linkedin.com/jobs/view/4418595929/" target="_blank">Apply on LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-rank">2</div>
+      <div class="today-info">
+        <h4>Alignerr — Voice Actor French Speakers <span class="pay-green">$170–$200 USD/hr</span></h4>
+        <p>Record French voice samples. Your mic setup (Fifine K688) is exactly what they need. Highest pay in this report.</p>
+        <a class="today-apply" href="https://www.linkedin.com/jobs/view/4419118354/" target="_blank">Apply on LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-rank">3</div>
+      <div class="today-info">
+        <h4>Alignerr — Data Labeling Specialist <span class="pay-green">$40–$120 USD/hr</span></h4>
+        <p>Label text, audio, images for AI. No experience needed. Flexible 10–40 hrs/week. Stack with the voice role.</p>
+        <a class="today-apply" href="https://www.linkedin.com/jobs/view/4420219363/" target="_blank">Apply on LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-rank">4</div>
+      <div class="today-info">
+        <h4>Sqwad — Teleoperateur Freelance Quebec <span class="pay-green">$20–$61 CAD/hr</span></h4>
+        <p>100% remote from Quebec. All in French. Your hours. Performance pay. 1-hour training. Starts fast.</p>
+        <a class="today-apply" href="https://www.linkedin.com/jobs/view/4403652084/" target="_blank">Apply on LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-rank">5</div>
+      <div class="today-info">
+        <h4>Upwork — French-Canadian Content Writer (Quebec French) <span class="pay-green">$12–$38 USD/hr</span></h4>
+        <p>Client has $2M+ spent on Upwork. Specifically needs Quebec French. Ongoing contract. Reliable pay.</p>
+        <a class="today-apply" href="https://www.upwork.com/nx/search/jobs/?q=Expert+Native+French-Canadian+Content+Writer+Sports+Betting&sort=recency" target="_blank">Find on Upwork</a>
+      </div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-rank">6</div>
+      <div class="today-info">
+        <h4>TD Bank — Centre de Contact Bilingue <span class="pay-green">$47,200–$66,600 CAD/yr</span></h4>
+        <p>High school diploma only. 95% remote after 12-week training in Mile End, Montreal. Start July 6. Apply now before spots close.</p>
+        <a class="today-apply" href="https://www.linkedin.com/jobs/view/4412415356/" target="_blank">Apply on LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-rank">7</div>
+      <div class="today-info">
+        <h4>Upwork — French Voice Actor for AI Startup <span class="pay-green">$200 USD/hr</span></h4>
+        <p>Short sentence recording. Client has $400K+ spent — very reliable. Specify Quebec French accent when applying.</p>
+        <a class="today-apply" href="https://www.upwork.com/jobs/span-class-highlight-French-span-Female-span-class-highlight-Voice-span-Actor-for-Recording-Short-Sentences-for-Startup-Product_~022060986089854308044/" target="_blank">Apply on Upwork</a>
+      </div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-rank">8</div>
+      <div class="today-info">
+        <h4>TELUS Digital — Remote Media Search Analyst (French CA) <span class="pay-green">Remote Canada</span></h4>
+        <p>Rate and evaluate online content in French Canadian. AI data work. No degree. Fully remote Canada. Found in your LinkedIn email alert today.</p>
+        <a class="today-apply" href="https://www.linkedin.com/jobs/search/?keywords=TELUS+Digital+Media+Search+Analyst+French" target="_blank">Find on LinkedIn</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LINKEDIN JOBS -->
+<section class="section" id="linkedin">
+  <div class="section-title"><span class="num">1</span> LinkedIn Jobs — 14 Found</div>
+  <p class="section-desc">All remote. All pass hard filters. Click "Show Full Description" on any card to read the complete job posting.</p>
+  <div class="jobs-list" id="jobs-linkedin">
+
+    <!-- LI-1 -->
+    <div class="job-card top" data-search="voice actor french alignerr ai training">
+      <div class="job-left">
+        <div class="job-rank green">1</div>
+        <span class="jbadge jbadge-pay">$170–$200/hr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-top">Top Pick</span>
+        <span class="jbadge jbadge-source">Voice / AI</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4419118354/" target="_blank">Voice Actor — French Speakers (AI Training)</a>
+        <div class="job-company">Alignerr</div>
+        <div class="job-meta">
+          <span class="jmeta">Hourly Contract</span><span class="jmeta">Remote — Canada</span><span class="jmeta">Flexible hrs</span><span class="jmeta">No degree</span>
+        </div>
+        <div class="job-desc-preview">Record high-quality French voice samples. Evaluate AI-generated voice outputs for naturalness and expressiveness. Fully remote, your own schedule. No prior AI experience required.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Voice Actor – French Speakers (AI Training) — Alignerr — Hourly Contract — Remote
+
+What You Will Do:
+- Record high-quality French voice samples from provided scripts and prompts
+- Evaluate AI-generated voice outputs for naturalness, pronunciation, and expressiveness
+- Provide clear, constructive feedback to improve AI-generated speech quality
+- Review and refine scripts to ensure natural delivery and linguistic accuracy
+- Work independently and asynchronously — fully on your own schedule
+
+Who You Are:
+- Fluent in French — native or near-native proficiency
+- Experienced in voice acting, narration, dubbing, or similar fields
+- Owner of a high-quality microphone and access to a quiet recording environment
+- No prior AI or tech experience required
+
+Nice to Have:
+- Professional voice-over credits or a demo reel
+- Knowledge of regional French variations — European, Canadian, African
+- Background in linguistics, broadcasting, or performing arts
+
+Why Join:
+- Fully remote and flexible — record from your own studio on your own schedule
+- Potential for ongoing work and contract extension
+- High performers gain visibility into new programs</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Perfect match. Voice acting in French, fully remote, no degree. You have the Fifine K688 mic and Maono PS22Lite — the exact professional home setup required. Your native Quebec French accent is a regional variation they actively want. Pay is exceptional at $170–$200 USD/hr. Apply first.</div>
+        <div class="skills-row"><span class="skill-tag">Voice Acting</span><span class="skill-tag">French</span><span class="skill-tag">AI Training</span><span class="skill-tag">Narration</span></div>
+        <a class="apply-btn green-btn" href="https://www.linkedin.com/jobs/view/4419118354/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <!-- LI-2 -->
+    <div class="job-card top" data-search="welo data canadian french culture expert ai">
+      <div class="job-left">
+        <div class="job-rank green">2</div>
+        <span class="jbadge jbadge-pay">$40/hr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-top">Immediate Start</span>
+        <span class="jbadge jbadge-source">AI / Linguistic</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4418595929/" target="_blank">Canadian French Culture Expert</a>
+        <div class="job-company">Welo Data</div>
+        <div class="job-meta">
+          <span class="jmeta">4 weeks</span><span class="jmeta">20 hrs/week</span><span class="jmeta">Remote — Canada</span><span class="jmeta">Starts immediately</span>
+        </div>
+        <div class="job-desc-preview">Rate AI-generated Canadian French responses for accuracy, grammar, and cultural fit. Rewrite weak responses. Compare two AI answers and pick the better one. Write French prompts. Flag answers missing Quebec cultural context.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Canadian French Culture Expert — Welo Data — Freelance Contract — Remote Canada — $40 USD/hr
+
+Start date: Immediate
+Duration: 4 weeks
+Hours: 20 hours per week, flexible schedule
+Rate: $40 USD/hr
+
+What You Will Do:
+- Read AI-generated French responses and rate them for accuracy, grammar, and cultural fit
+- Rewrite weak responses into clear, natural Canadian French
+- Compare two AI answers side-by-side, pick the better one, and explain why
+- Write your own French prompts and example responses to expand training data
+- Flag answers that miss Canadian French cultural context or local references
+
+Who We're Looking For:
+- Fluent in French, with strong written grammar
+- Understanding of English — project guidelines and team communication are in English
+- Based in Canada
+- Background in teaching, writing, editing, or translation is a plus, not a requirement
+- Ready for structured, repetitive review work</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Starts this week. $40 USD/hr × 20 hrs × 4 weeks = roughly $3,200 USD for the contract. No degree. Your native Quebec French and bilingual skills are exactly what they need. You can rate Canadian French cultural accuracy better than most because you live it daily.</div>
+        <div class="skills-row"><span class="skill-tag">Canadian French</span><span class="skill-tag">AI Evaluation</span><span class="skill-tag">Content Review</span></div>
+        <a class="apply-btn green-btn" href="https://www.linkedin.com/jobs/view/4418595929/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <!-- LI-3 -->
+    <div class="job-card top" data-search="alignerr data labeling specialist ai">
+      <div class="job-left">
+        <div class="job-rank green">3</div>
+        <span class="jbadge jbadge-pay">$40–$120/hr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-top">Top Pick</span>
+        <span class="jbadge jbadge-source">AI / Data</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4420219363/" target="_blank">Data Labeling Specialist (AI Training)</a>
+        <div class="job-company">Alignerr</div>
+        <div class="job-meta">
+          <span class="jmeta">Hourly Contract</span><span class="jmeta">10–40 hrs/week</span><span class="jmeta">Remote — Canada</span><span class="jmeta">No experience needed</span>
+        </div>
+        <div class="job-desc-preview">Categorize and label text, images, and audio using predefined guidelines. Follow structured instructions. Work independently on your own schedule. No prior data labeling or AI experience required.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Data Labeling Specialist — Alignerr — Hourly Contract — Remote — $40–$120 USD/hr
+
+Commitment: 10–40 hours/week — your choice
+
+What You Will Do:
+- Categorize and label data including text, images, and audio using predefined guidelines and tag sets
+- Annotate content accurately and consistently across large datasets
+- Follow detailed project instructions to ensure data quality meets research standards
+- Participate in calibration exercises to maintain accuracy benchmarks
+- Complete task-based assignments independently on your own schedule
+
+Who You Are:
+- Detail-oriented with a methodical approach to repetitive tasks
+- Able to follow structured instructions precisely
+- Comfortable working with web-based tools and platforms
+- No prior data labeling, AI, or tech experience required
+
+Why Join:
+- Work on real AI projects
+- Fully remote and flexible — work when and where it suits you
+- Potential for ongoing work and contract extension</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Zero experience required. $40–$120 USD/hr with flexible 10–40 hrs/week. Stack this with the Alignerr Voice Actor role — same company, multiple contracts. Quick to start, pay per task.</div>
+        <div class="skills-row"><span class="skill-tag">Data Annotation</span><span class="skill-tag">AI Training</span><span class="skill-tag">Detail Work</span></div>
+        <a class="apply-btn green-btn" href="https://www.linkedin.com/jobs/view/4420219363/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <!-- LI-4 -->
+    <div class="job-card top" data-search="alignerr audio transcription specialist ai">
+      <div class="job-left">
+        <div class="job-rank green">4</div>
+        <span class="jbadge jbadge-pay">$40–$120/hr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-top">Top Pick</span>
+        <span class="jbadge jbadge-source">Transcription / AI</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4420223018/" target="_blank">Audio Transcription Specialist (AI Training)</a>
+        <div class="job-company">Alignerr</div>
+        <div class="job-meta">
+          <span class="jmeta">Hourly Contract</span><span class="jmeta">10–40 hrs/week</span><span class="jmeta">Remote — Canada</span><span class="jmeta">No experience needed</span>
+        </div>
+        <div class="job-desc-preview">Convert audio recordings into accurate written text. Handle various speakers, accents, and audio quality levels. Work independently on your own schedule. No transcription or AI experience required.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Audio Transcription Specialist — Alignerr — Hourly Contract — Remote — $40–$120 USD/hr
+
+What You Will Do:
+- Transcribe audio recordings into accurate written text following structured guidelines
+- Handle a variety of speakers, accents, speeds, and audio quality levels
+- Apply consistent formatting, punctuation, and style rules across all transcriptions
+- Flag unclear or inaudible segments and note speaker changes where relevant
+- Meet quality and turnaround targets for each assigned batch
+- Work independently and asynchronously on your own schedule
+
+Who You Are:
+- A strong, attentive listener with a sharp ear for detail
+- Accurate and reasonably fast typist
+- Patient and methodical when working through challenging audio
+- No professional transcription or AI experience required
+
+Nice to Have:
+- Prior experience with transcription tools or platforms
+- Familiarity with French or English accents or dialects</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Your bilingual ear for French and English accents is a direct advantage. No experience required. Same pay range as the Data Labeling role. Stack all three Alignerr contracts — Voice + Data + Transcription — for maximum income from one company.</div>
+        <div class="skills-row"><span class="skill-tag">Transcription</span><span class="skill-tag">Bilingual</span><span class="skill-tag">AI Training</span></div>
+        <a class="apply-btn green-btn" href="https://www.linkedin.com/jobs/view/4420223018/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <!-- LI-5 -->
+    <div class="job-card top" data-search="sqwad teleoperateur freelance quebec french">
+      <div class="job-left">
+        <div class="job-rank green">5</div>
+        <span class="jbadge jbadge-pay">$20–$61 CAD/hr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-top">Top Pick</span>
+        <span class="jbadge jbadge-source">French / Phone</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4403652084/" target="_blank">Teleoperateur Freelance — Outbound Call Agent</a>
+        <div class="job-company">Sqwad</div>
+        <div class="job-meta">
+          <span class="jmeta">Freelance</span><span class="jmeta">100% Remote — Quebec</span><span class="jmeta">Min 10 hrs/week</span><span class="jmeta">Your schedule</span>
+        </div>
+        <div class="job-desc-preview">Outbound phone calls in French for client companies. Performance pay: $2 per call + $13 per conversion. 1-hour training provided for each mission. 100% from home, anywhere in Quebec. Mon–Sun flexible.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Teleoperateur Freelance H/F — Sqwad — Teletravail 100% — Quebec
+
+Remuneration: $CA 20.62 a $CA 60.97 par heure (performance-based)
+- $2 par appel effectue
+- $13 pour chaque conversion (client uses your promo code)
+- Aucun frais pour les candidats
+
+Ce que nous offrons:
+- Statut de travailleur autonome (freelance / self-employed)
+- Teletravail 100% depuis chez vous, ou que vous soyez au Quebec
+- Horaires flexibles — minimum 10h par semaine, lundi a dimanche
+- Formation d'une heure avant chaque mission — script fourni
+
+Votre mission:
+Appeler une liste de contacts en suivant les instructions et en posant les bonnes questions pour qualifier les prospects. Formation fournie avant chaque mission.
+
+Remuneration: Plus vous contactez et qualifiez des prospects, plus vous gagnez.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Made for you. 100% remote from anywhere in Quebec. All in French. Freelance self-employed status. You pick your hours. Training provided before each mission. Performance pay — the more you do, the more you earn. No degree.</div>
+        <div class="skills-row"><span class="skill-tag">French</span><span class="skill-tag">Outbound Calls</span><span class="skill-tag">Freelance</span></div>
+        <a class="apply-btn green-btn" href="https://www.linkedin.com/jobs/view/4403652084/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <!-- LI-6 -->
+    <div class="job-card top" data-search="td bank representant bilingue centre contact montreal">
+      <div class="job-left">
+        <div class="job-rank green">6</div>
+        <span class="jbadge jbadge-pay">$47K–$66K CAD/yr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-top">Stable Income</span>
+        <span class="jbadge jbadge-source">Banking / Bilingual</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4412415356/" target="_blank">Representant(e) Bilingue — Centre de Contact, Prevention des Pertes</a>
+        <div class="job-company">TD Bank</div>
+        <div class="job-meta">
+          <span class="jmeta">Full-time</span><span class="jmeta">37.5 hrs/week</span><span class="jmeta">95% Remote Montreal</span><span class="jmeta">Start July 6, 2026</span>
+        </div>
+        <div class="job-desc-preview">Be the voice of TD Bank. Handle customer calls related to fraud prevention. Resolve problems with empathy. 95% remote after 12-week in-person training at Mile End, Montreal. High school diploma only — no university degree required.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Representant(e) Bilingue — Centre de Contact III — Prevention des Pertes — TD Bank
+Salary: $47,200 – $66,600 CAD/year + full benefits
+Start date: July 6, 2026
+Location: 95% remote after training — Training: 12 weeks in-person at 7250 rue Mile End, Montreal QC
+
+Votre role:
+- Repondre aux appels des clients en lien avec leur compte
+- Regler des problemes et recommander des produits ou services de la TD
+- Offrir un service a la clientele legendaire
+- Resoudre efficacement les problemes avec empathie
+- Atteindre vos objectifs de rendement
+
+Education requise:
+- Diplome d'etudes secondaires ou l'equivalent (HIGH SCHOOL DIPLOMA ONLY — not a university degree)
+- Bilingue (Francais et Anglais)
+
+CNP Code: 14201 – Commis de banque, d'assurance et d'autres services financiers</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Only requires a high school diploma — not a university degree. Major bank, stable salary, full benefits. Bilingual FR/EN is mandatory — your strength. 95% remote after training. Start date July 6 — apply today before spots close. This is the most stable full-time option in this report.</div>
+        <div class="skills-row"><span class="skill-tag">Bilingual FR/EN</span><span class="skill-tag">Customer Service</span><span class="skill-tag">Fraud Prevention</span></div>
+        <a class="apply-btn green-btn" href="https://www.linkedin.com/jobs/view/4412415356/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <!-- LI-7 to LI-14 condensed -->
+    <div class="group-header"><span class="group-label">More LinkedIn Jobs</span><div class="group-line"></div></div>
+
+    <div class="job-card" data-search="meridial invisible french voice acting ai trainer">
+      <div class="job-left">
+        <div class="job-rank">7</div>
+        <span class="jbadge jbadge-pay">$6–$65/hr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-source">Voice / AI</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4334942488/" target="_blank">French Voice Acting Specialist — AI Trainer</a>
+        <div class="job-company">Meridial Marketplace by Invisible</div>
+        <div class="job-meta"><span class="jmeta">Contract</span><span class="jmeta">Remote — Canada</span><span class="jmeta">No degree</span></div>
+        <div class="job-desc-preview">Record French speech samples and evaluate AI voice outputs for pronunciation, tone, pacing, and emotional expression. High-quality home recording setup required. No specific degree requirement.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">French Voice Acting Specialist – AI Trainer — Meridial Marketplace by Invisible — Contract — Remote
+
+Record scripted material, assess AI-generated outputs for linguistic accuracy and naturalness, annotate errors, and collaborate to refine prompts and voice design guidelines.
+
+Requirements:
+- Fluency in French required
+- Experience in voice acting, dubbing, narration, or related performance work
+- High-quality recording setup — reliable microphone and quiet environment required
+- No specific degree requirements
+
+Pay range: $6 to $65 per hour. Exact rate determined after evaluating your experience and location.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">French voice acting and AI training from home. No degree listed. Your professional recording setup is ready. Pay tops out at $65 USD/hr — lower than Alignerr but worth applying to both simultaneously.</div>
+        <div class="skills-row"><span class="skill-tag">Voice Acting</span><span class="skill-tag">French</span><span class="skill-tag">AI Evaluation</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4334942488/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="crossing hurdles french voice artist">
+      <div class="job-left">
+        <div class="job-rank">8</div>
+        <span class="jbadge jbadge-pay">$20–$30/hr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-source">Voice / Contract</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4404739577/" target="_blank">French Voice Artist</a>
+        <div class="job-company">Crossing Hurdles</div>
+        <div class="job-meta"><span class="jmeta">$20–$30/hr</span><span class="jmeta">10–40 hrs/week</span><span class="jmeta">Remote — Canada</span></div>
+        <div class="job-desc-preview">Record high-quality French voice samples for AI training. Interpret scripts with clarity and natural delivery. Access to a high-quality recording setup required. Easy Apply on LinkedIn.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">French Voice Actor — Crossing Hurdles — $20–$30/hour — Remote — 10–40 hours/week
+
+Role Responsibilities:
+- Record high-quality French voice samples for AI training and development
+- Interpret scripts with clarity, emotional depth, and natural delivery
+- Maintain consistency in tone, pronunciation, and vocal delivery
+- Provide feedback to improve script quality and linguistic accuracy
+- Ensure recordings are free from background noise and technical issues
+
+Requirements:
+- Strong fluency in French with strong pronunciation and diction
+- Access to a high-quality recording setup and noise-free environment
+
+Application Process: Easy Apply on LinkedIn → email → resume evaluation → interview</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Good fallback voice contract at $20–$30 USD/hr. No degree, fully remote. Apply alongside the higher-paying Alignerr voice role. Multiple voice contracts at once is common in this industry.</div>
+        <div class="skills-row"><span class="skill-tag">French Voice</span><span class="skill-tag">AI Training</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4404739577/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="dataannotation bilingual content editor french">
+      <div class="job-left">
+        <div class="job-rank">9</div>
+        <span class="jbadge jbadge-pay">$25+/hr</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-source">AI / Writing</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4309800171/" target="_blank">Bilingual Content Editor (French)</a>
+        <div class="job-company">DataAnnotation</div>
+        <div class="job-meta"><span class="jmeta">$25+/hr</span><span class="jmeta">Remote — Canada</span><span class="jmeta">Full or part-time</span><span class="jmeta">Your schedule</span></div>
+        <div class="job-desc-preview">Give AI chatbots writing and editing tasks and evaluate their outputs. Choose which projects you want to work on. Work on your own schedule. Degree preferred but NOT required. Bilingual French/English required.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Bilingual Content Editor (French) — DataAnnotation — Remote — $25+ USD/hr
+
+Benefits:
+- Full-time or part-time REMOTE position
+- Choose which projects you want to work on
+- Work on your own schedule
+- Starting at $25+ USD per hour with bonuses on high-quality and high-volume work
+
+Responsibilities:
+- Give AI chatbots writing and editing tasks and evaluate their outputs
+- Evaluate the quality produced by AI models for correctness and performance
+
+Qualifications:
+- Fluency in English and French
+- Detail-oriented, excellent command of grammar and style
+- A Bachelor's degree is preferred but NOT required</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">No degree required — only preferred. Fully remote, you set your own hours, $25+ USD/hr. Uses your bilingual writing and content skills. Easy to combine with other remote contracts.</div>
+        <div class="skills-row"><span class="skill-tag">Bilingual FR/EN</span><span class="skill-tag">AI Evaluation</span><span class="skill-tag">Writing</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4309800171/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="jobgether computer voice rating canadian french">
+      <div class="job-left">
+        <div class="job-rank">10</div>
+        <span class="jbadge jbadge-pay">Per task</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-source">AI / Voice Rating</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4419012655/" target="_blank">Computer Voice Rating Task — Canadian French</a>
+        <div class="job-company">Jobgether (partner company)</div>
+        <div class="job-meta"><span class="jmeta">Ad-hoc tasks</span><span class="jmeta">Remote — Canada</span><span class="jmeta">Native Canadian French required</span></div>
+        <div class="job-desc-preview">Listen to short Canadian French text-to-speech audio clips and evaluate voice quality. Use the ADAP online platform. First-come first-served tasks. No experience required. Native Canadian French speaker mandatory.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Computer Voice Rating Task — Jobgether (partner company) — Remote — Canada — Pay per task
+
+Accountabilities:
+- Listen to short text-to-speech audio clips in Canadian French and evaluate voice quality based on provided criteria
+- Provide consistent, subjective assessments according to task guidelines
+- Complete assigned tasks through the ADAP online evaluation platform
+- Work on a first-come, first-served basis within expected timelines (typically short windows)
+- Follow instructions carefully to ensure accurate and reliable data input
+
+Requirements:
+- Native-level fluency in Canadian French
+- Current residence in Canada
+- Access to a computer with Chrome or Firefox (no mobile)
+- Stable internet connection suitable for audio streaming
+- No experience required</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Native Quebec French is mandatory — you are the exact match. Simple listening and rating tasks from home. Good supplemental income stacked on top of higher-paying contracts.</div>
+        <div class="skills-row"><span class="skill-tag">Canadian French</span><span class="skill-tag">Voice Evaluation</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419012655/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="yo it consulting audio transcription expert remote">
+      <div class="job-left">
+        <div class="job-rank">11</div>
+        <span class="jbadge jbadge-pay">Rate TBD</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-source">Transcription</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4422518064/" target="_blank">Audio Transcription Expert (Remote)</a>
+        <div class="job-company">YO IT Consulting</div>
+        <div class="job-meta"><span class="jmeta">Contractor</span><span class="jmeta">Remote — Canada</span><span class="jmeta">Posted 1 day ago</span><span class="jmeta">No degree</span></div>
+        <div class="job-desc-preview">Transcribe audio recordings and written documents into structured digital formats. Validate entries for consistency. No specific degree required. Fresh posting — less competition.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Audio Transcription Expert — YO IT Consulting — Remote — Contractor
+
+Qualifications:
+- No specific degree required — relevant experience in transcription or data entry strongly preferred
+- Transcription experience: transcribing audio (interviews, calls, hearings) and/or written documents
+- Detail-oriented: catch small discrepancies in names, dates, numbers, formats
+- English proficiency: minimum B2 for understanding guidelines
+- Tools: comfortable using spreadsheets and web-based tools, fast and accurate typing
+
+Responsibilities:
+- Transcribe handwritten or printed pages into structured digital formats
+- Produce clean transcripts from audio and written sources following strict formatting rules
+- Validate entries for internal consistency, flag unclear items</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">No degree required. Posted just 1 day ago — very fresh, less competition. Remote contractor. Your bilingual listening skills make transcription natural. Rate not listed — check the posting for details.</div>
+        <div class="skills-row"><span class="skill-tag">Transcription</span><span class="skill-tag">Data Entry</span><span class="skill-tag">Detail Work</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4422518064/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="sigma ai french canada linguistic projects">
+      <div class="job-left">
+        <div class="job-rank">12</div>
+        <span class="jbadge jbadge-pay">Contract</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-source">Linguistic / AI</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4317992615/" target="_blank">French (Canada) Linguistic Projects</a>
+        <div class="job-company">Sigma AI</div>
+        <div class="job-meta"><span class="jmeta">Commercial contract</span><span class="jmeta">Remote — Canada</span><span class="jmeta">Basic computer skills only</span></div>
+        <div class="job-desc-preview">All tasks remote. Fluent in French and English required — listen and write without spelling mistakes. Basic computer skills only. Microphone required. Ongoing pipeline posting for multiple projects.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">French (Canada) Linguistic Projects — Sigma AI — Remote — Commercial Contract
+
+Requirements:
+- Fluent in French — able to listen and write correctly without spelling mistakes
+- Fluent in English — able to listen and write correctly without spelling mistakes
+- Basic computer skills
+
+Preferred but not mandatory:
+- Experience in data annotation or content rating
+- Strong attention to detail
+
+Technical Requirements:
+- Computer: Minimum 4GB RAM, Microphone and webcam
+- Windows 10 or higher
+- Stable internet connection, headphones
+
+Note: Sigma AI does not hire through third parties. Apply directly.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Bilingual French/English required. Basic computer skills only. No degree. You have Windows PC, Fifine K688 microphone, and internet. Ongoing pipeline — good for steady work over time.</div>
+        <div class="skills-row"><span class="skill-tag">French</span><span class="skill-tag">English</span><span class="skill-tag">Linguistic</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4317992615/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="resolv global bilingual customer support montreal quebecois">
+      <div class="job-left">
+        <div class="job-rank">13</div>
+        <span class="jbadge jbadge-pay">Rate TBD</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-source">Customer Service</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4419368383/" target="_blank">Bilingual Customer Support Specialist (EN/FR-Canadian)</a>
+        <div class="job-company">Resolv Global</div>
+        <div class="job-meta"><span class="jmeta">Remote — Montreal</span><span class="jmeta">Quebecois dialect preferred</span><span class="jmeta">Windows 11 required</span></div>
+        <div class="job-desc-preview">Handle inbound customer support via phone, email, and live chat in both English and French-Canadian. Strong preference for authentic Quebecois dialect. Must have Windows 11, 12–16 GB RAM, dual monitors, fibre internet.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Bilingual Customer Support Specialist — Resolv Global — Remote — Montreal, QC
+
+Key Responsibilities:
+- Handle inbound customer support inquiries via phone, email, and live chat
+- Assist customers with warranty claims and general product or service inquiries
+- Provide customer support in both English and French
+- Accurately document customer interactions
+
+Technical Requirements (must meet ALL):
+- Windows 11 PC (Mac not supported)
+- 12–16 GB RAM
+- Dual monitors
+- Webcam (for interviews only, not for ongoing work)
+- Fibre internet with a wired connection
+- Backup power solution
+- Microsoft Teams / Office 365
+
+Requirements:
+- Native or near-native fluency in English and French-Canadian
+- Strong preference for authentic Quebecois dialect
+- Previous customer service experience required</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">They specifically want authentic Quebecois dialect — that is exactly you. Fully remote from Montreal. No university degree listed. Verify you have Windows 11, 12–16 GB RAM, dual monitors, and fibre internet before applying.</div>
+        <div class="skills-row"><span class="skill-tag">Quebecois French</span><span class="skill-tag">Customer Service</span><span class="skill-tag">Bilingual</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419368383/" target="_blank">Apply on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="10k distribution bilingual area sales manager quebec">
+      <div class="job-left">
+        <div class="job-rank">14</div>
+        <span class="jbadge jbadge-pay">Rate TBD</span>
+        <span class="jbadge jbadge-platform">LinkedIn</span>
+        <span class="jbadge jbadge-source">Sales / Bilingual</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/view/4418979485/" target="_blank">Bilingual Area Sales Manager / Account Manager — East Coast</a>
+        <div class="job-company">10k Distribution</div>
+        <div class="job-meta"><span class="jmeta">Remote — Quebec</span><span class="jmeta">Verify degree requirements before applying</span></div>
+        <div class="job-desc-preview">Remote bilingual sales/account management role based in Quebec. Full description not retrieved during scan — click the link below to read the full posting and verify degree requirements before applying.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Remote bilingual role in Quebec. Must verify degree requirements manually before applying — do not apply until you read the full listing and confirm no degree is required.</div>
+        <div class="skills-row"><span class="skill-tag">Bilingual</span><span class="skill-tag">Sales</span><span class="skill-tag">Account Management</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4418979485/" target="_blank">View Full Job on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+  </div><!-- end jobs-linkedin -->
+</section>
+
+<div class="divider"></div>
+
+<!-- UPWORK ACCOUNT + JOBS -->
+<section class="section" id="upwork">
+  <div class="section-title"><span class="num">2</span> Upwork — Account + 8 Jobs Found</div>
+  <p class="section-desc">Your live Upwork account data pulled May 31, 2026. Jobs found using your saved searches.</p>
+
+  <div class="account-grid" style="margin-bottom:28px;">
+    <div class="account-card">
+      <h4>Account Status</h4>
+      <ul>
+        <li><strong>Name:</strong> Malaka O.</li>
+        <li><strong>Profile:</strong> 100% complete</li>
+        <li><strong>Connects:</strong> 53 (each proposal costs 6–16 connects)</li>
+        <li><strong>Saved Jobs:</strong> 115 — review these, some may still be open</li>
+        <li><strong>Availability Badge:</strong> OFF — turn ON to attract clients</li>
+      </ul>
+    </div>
+    <div class="account-card">
+      <h4>Tips to Get More Jobs</h4>
+      <ul>
+        <li>Turn ON your Availability Badge — signals you are ready to work now</li>
+        <li>Apply early — under 5 proposals = much higher response rate</li>
+        <li>Keep a short bilingual proposal template ready</li>
+        <li>Buy more connects before applying to multiple jobs</li>
+        <li>Check your 115 saved jobs — some may still be open</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="jobs-list" id="jobs-upwork">
+
+    <div class="job-card top" data-search="upwork french canadian content writer sports betting quebec">
+      <div class="job-left">
+        <div class="job-rank green">U1</div>
+        <span class="jbadge jbadge-pay">$12–$38/hr</span>
+        <span class="jbadge jbadge-platform">Upwork</span>
+        <span class="jbadge jbadge-top">Quebec French</span>
+        <span class="jbadge jbadge-source">Writing</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.upwork.com/nx/search/jobs/?q=Expert+Native+French-Canadian+Content+Writer+Sports+Betting&sort=recency" target="_blank">Expert Native French-Canadian Content Writer — Sports Betting Site</a>
+        <div class="job-company">Anonymous Client — $2M+ spent on Upwork (Rating 4.9/5)</div>
+        <div class="job-meta"><span class="jmeta">$12–$38/hr</span><span class="jmeta">Ongoing</span><span class="jmeta">Remote</span><span class="jmeta">Quebec French required</span></div>
+        <div class="job-desc-preview">Write sportsbook reviews, betting guides, and industry news for the Quebec market. Must know when to use "Miser" vs "Parier" — authentic Quebec French terminology required. SEO-optimized content.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Expert Native French-Canadian Content Writer for Sports Betting Site — Upwork — $12–$38/hr — Ongoing
+
+What you will do:
+- Write comprehensive and engaging content about sports betting, operators, and bonuses
+- Localize betting concepts for the Quebec market — tone and terminology must feel 100% native (e.g., knowing exactly when to use "Miser" vs "Parier")
+- Incorporate targeted keywords and specific anchor texts naturally into content
+- Understand and apply specific content structures to maintain site quality
+
+Skills: Content Writing, SEO, French, Quebec French
+Experience level: Intermediate
+Client: Verified payment. Rating 4.9/5. $2M+ spent. Location: Hong Kong</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">They need Quebec French specifically — your native dialect. Client has $2M+ spent on Upwork — very serious and reliable payer. Ongoing contract. No degree required. Your Quebec French terminology knowledge is a direct edge over France French speakers.</div>
+        <div class="skills-row"><span class="skill-tag">Quebec French</span><span class="skill-tag">Content Writing</span><span class="skill-tag">SEO</span></div>
+        <a class="apply-btn green-btn" href="https://www.upwork.com/nx/search/jobs/?q=Expert+Native+French-Canadian+Content+Writer+Sports+Betting&sort=recency" target="_blank">Find on Upwork &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card top" data-search="heygen native french seo translator saas localization">
+      <div class="job-left">
+        <div class="job-rank green">U2</div>
+        <span class="jbadge jbadge-pay">Hourly TBD</span>
+        <span class="jbadge jbadge-platform">Upwork</span>
+        <span class="jbadge jbadge-top">Major Company</span>
+        <span class="jbadge jbadge-source">Localization</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.upwork.com/nx/search/jobs/?q=Native+French+SEO+Translator+HeyGen&sort=recency" target="_blank">Native French SEO Translator — HeyGen SaaS Website</a>
+        <div class="job-company">HeyGen — $500K+ spent on Upwork (Rating 5.0/5)</div>
+        <div class="job-meta"><span class="jmeta">Hourly</span><span class="jmeta">Remote</span><span class="jmeta">Expert level</span><span class="jmeta">$500K+ client</span></div>
+        <div class="job-desc-preview">Review HeyGen's AI-translated French website (heygen.com/fr-fr). Fix grammar, rewrite awkward phrases to sound natural in French, adjust keywords for the French market. Pages are 200–800 words each. Review work, not writing from scratch.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Native French SEO Translator for SaaS Website Localization Audit — HeyGen — Upwork
+
+HeyGen is an AI video platform. Our French website (heygen.com/fr-fr) is AI-translated and needs a native speaker to review and improve it for fluency, search, and cultural fit.
+
+The French market is opinionated about anglicisms. We need someone who can keep the copy properly French (IA not AI, vous register, clean syntax) while targeting terms French buyers actually search.
+
+This is review and SEO optimization, not original copywriting.
+
+What you will do:
+- Review existing AI-translated copy page by page
+- Flag awkward or incorrect translations
+- Rewrite phrases to sound natural in French
+- Make keyword adjustments for the French market
+
+Skills: SEO, French, Translation, Localization, SaaS
+Client: Verified. Rating 5.0/5. $500K+ spent. Location: United States</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">HeyGen is a major, well-funded AI company. Perfect 5.0 rating, $500K+ spent — very reliable. Your native French makes this easy work. To apply, write one short example: take an English sentence from their site and show how you would write it naturally in French. No degree required.</div>
+        <div class="skills-row"><span class="skill-tag">French</span><span class="skill-tag">Localization</span><span class="skill-tag">SEO</span><span class="skill-tag">Translation</span></div>
+        <a class="apply-btn green-btn" href="https://www.upwork.com/nx/search/jobs/?q=Native+French+SEO+Translator+HeyGen&sort=recency" target="_blank">Find on Upwork &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="upwork french voice actor startup sentences ai">
+      <div class="job-left">
+        <div class="job-rank">U3</div>
+        <span class="jbadge jbadge-pay">$200/hr</span>
+        <span class="jbadge jbadge-platform">Upwork</span>
+        <span class="jbadge jbadge-source">Voice / AI</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.upwork.com/jobs/span-class-highlight-French-span-Female-span-class-highlight-Voice-span-Actor-for-Recording-Short-Sentences-for-Startup-Product_~022060986089854308044/" target="_blank">French Voice Actor — Short Sentence Recording for AI Startup</a>
+        <div class="job-company">AI Startup — $400K+ spent (Rating 4.9/5)</div>
+        <div class="job-meta"><span class="jmeta">$200/hr</span><span class="jmeta">Remote</span><span class="jmeta">Short task</span><span class="jmeta">Note: title says female, but apply anyway</span></div>
+        <div class="job-desc-preview">Record a short set of sentences for a voice interface. Clear, natural, service-oriented tone. High-quality home recording setup required. Include a demo or portfolio link. Title says "female" — this likely refers to the voice character, not the applicant's gender.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">French Female Voice Actor for Recording Short Sentences for a Startup Product — Upwork — $200/hr
+
+We are an AI startup looking for a native-level French voice actor to record a short set of sentences for a voice interface in our product. We are looking for a clear, natural, and consistent voice with a pleasant, service-oriented tone.
+
+Requirements:
+- Native-level French speaker (please specify accent/region)
+- Good diction, natural and service-oriented tone
+- High-quality home recording setup and a quiet environment
+
+What we need delivered:
+- Clean recordings based on a script we provide
+- Format: high-quality MP3
+- Minor revisions based on feedback if needed
+
+How to apply: Include a link to an existing demo/portfolio with a similar tone
+
+Client: Verified. Rating 4.9/5. $400K+ spent. Israel</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">$200 USD/hr is the highest Upwork rate in this report. Client has $400K+ spent — serious and reliable. You have the professional setup they need. Apply and specify "native Quebec French speaker" as your accent/region. The "female" in the title likely refers to the voice character they want recorded, not a restriction on the applicant.</div>
+        <div class="skills-row"><span class="skill-tag">French Voice</span><span class="skill-tag">Recording</span><span class="skill-tag">AI</span></div>
+        <a class="apply-btn" href="https://www.upwork.com/jobs/span-class-highlight-French-span-Female-span-class-highlight-Voice-span-Actor-for-Recording-Short-Sentences-for-Startup-Product_~022060986089854308044/" target="_blank">Apply on Upwork &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="upwork ai voice agent 24 audio samples french">
+      <div class="job-left">
+        <div class="job-rank">U4</div>
+        <span class="jbadge jbadge-pay">$5–$50/hr</span>
+        <span class="jbadge jbadge-platform">Upwork</span>
+        <span class="jbadge jbadge-source">Voice / AI</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.upwork.com/jobs/span-class-highlight-Voice-span-Agent-Make-audio-samples_~022061075638598653123/" target="_blank">AI Voice Agent — Make 24 Audio Samples (French included)</a>
+        <div class="job-company">Client — $60K+ spent (Rating 4.8/5)</div>
+        <div class="job-meta"><span class="jmeta">$5–$50/hr</span><span class="jmeta">Long-term 6+ months</span><span class="jmeta">30+ hrs/week</span><span class="jmeta">French is one language needed</span></div>
+        <div class="job-desc-preview">Create 24 voice recordings across industries (insurance, telecom, etc.). Scripts provided. French is one of the languages required. Long-term ongoing role. Can use AI voice tools or record your own voice.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">AI Voice Agent — Make 24 Audio Samples — Upwork — $5–$50/hr — Long-term
+
+We are looking for a professional AI voice making specialist to help us create 24 sample voice recordings across different industries (insurance, telecom, other business sectors). Scripts are already prepared.
+
+Final requirement: 24 completed voice recordings, each matching the tone of its industry. Clean, professional audio quality. Commercial usage/license rights included.
+
+Languages: Arabic, English, Hindi, and French mentioned.
+
+NOTE: This is a long-term ongoing role for a specialist in AI voice tools — not necessarily a traditional voice actor role.
+
+Type: Hourly. More than 6 months. 30+ hrs/week.
+Client: Verified. Rating 4.8/5. $60K+ spent. India</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">French is one of the required languages. Long-term contract with a reliable client. You can record your own voice (Fifine K688 setup ready) or use ElevenLabs for AI-generated voice. Mention both capabilities in your proposal.</div>
+        <div class="skills-row"><span class="skill-tag">French Voice</span><span class="skill-tag">AI Voice</span><span class="skill-tag">Long-term</span></div>
+        <a class="apply-btn" href="https://www.upwork.com/jobs/span-class-highlight-Voice-span-Agent-Make-audio-samples_~022061075638598653123/" target="_blank">Apply on Upwork &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="upwork seo copywriter french padre digital">
+      <div class="job-left">
+        <div class="job-rank">U5</div>
+        <span class="jbadge jbadge-pay">$200 fixed</span>
+        <span class="jbadge jbadge-platform">Upwork</span>
+        <span class="jbadge jbadge-source">Writing / SEO</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.upwork.com/nx/search/jobs/?q=SEO+GEO+copywriter+french&sort=recency" target="_blank">SEO/GEO Copywriter in French — Padre Digital</a>
+        <div class="job-company">Padre Digital — France (Rating 5.0/5)</div>
+        <div class="job-meta"><span class="jmeta">$200 fixed</span><span class="jmeta">Remote</span><span class="jmeta">Expert</span><span class="jmeta">5-10 proposals</span></div>
+        <div class="job-desc-preview">Write premium SEO/GEO content for a digital agency website. Content must rank well in Google and be reusable by AI tools (ChatGPT, Perplexity, Google AI Overviews). Strategic content partner role. French required.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">SEO/GEO Copywriter — Business, Conversion and Authority (in French) — Padre Digital — $200 fixed
+
+We are looking for a profile capable of producing premium SEO/GEO content for our digital agency website.
+
+The goal: create content capable of ranking well, being reused by AIs (ChatGPT, Perplexity, Google AI Overviews), and improving credibility, perceived value, and conversions on the site.
+
+Missions may include:
+- Writing SEO/GEO-oriented pages
+- Website pages, case studies
+- Thought leadership content
+- Meta descriptions
+
+Must be fluent in French. Standard French accepted.
+Client: Verified. Rating 5.0/5. $2K+ spent. France</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">$200 fixed for French content writing. No degree required. Your bilingual content writing skills and French proficiency match well. Standard French is accepted — Quebec French works. Good for building your Upwork review history.</div>
+        <div class="skills-row"><span class="skill-tag">French</span><span class="skill-tag">SEO</span><span class="skill-tag">Copywriting</span></div>
+        <a class="apply-btn" href="https://www.upwork.com/nx/search/jobs/?q=SEO+GEO+copywriter+french&sort=recency" target="_blank">Find on Upwork &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="upwork french canadian sentence recording funcrowd">
+      <div class="job-left">
+        <div class="job-rank">U6</div>
+        <span class="jbadge jbadge-pay">$20 fixed</span>
+        <span class="jbadge jbadge-platform">Upwork</span>
+        <span class="jbadge jbadge-source">Voice / Quick Task</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.upwork.com/jobs/span-class-highlight-French-span-Canadian-sentence-recording-project_~022061031135227729606/" target="_blank">French (Canadian) Sentence Recording Project</a>
+        <div class="job-company">Client — $8K+ spent (Rating 4.9/5)</div>
+        <div class="job-meta"><span class="jmeta">$20 fixed</span><span class="jmeta">30–40 minutes</span><span class="jmeta">Canadian French required</span><span class="jmeta">FunCrowd app</span></div>
+        <div class="job-desc-preview">Record 460 short sentences using the FunCrowd mobile app. 30–40 minutes total. Canadian French native speakers only. $20 USD for completing the task. Good for building your Upwork review count fast.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">French (Canadian) Sentence Recording Project — Upwork — $20 USD fixed
+
+- Record 460 short sentences
+- Task takes about 30 to 40 minutes to complete
+- Quiet environment and a smartphone with good audio quality required
+- Payment: $20 USD for completing the task
+- Bonus: 5-star rating for completed work
+- 200+ participants accepted
+- Must be a French (Canadian) native speaker
+- Can only participate once in this project
+
+Skills: Voice Acting, Voice-Over, French
+Client: Verified. Rating 4.9/5. $8K+ spent. Pakistan</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Specifically requires Canadian French — your native dialect. Quick task, 30–40 minutes, $20 for your time. Low effort, good for building Upwork reviews quickly. A 5-star rating bonus is included for completed work.</div>
+        <div class="skills-row"><span class="skill-tag">Canadian French</span><span class="skill-tag">Voice Recording</span></div>
+        <a class="apply-btn" href="https://www.upwork.com/jobs/span-class-highlight-French-span-Canadian-sentence-recording-project_~022061031135227729606/" target="_blank">Apply on Upwork &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="upwork native speaker translation review french">
+      <div class="job-left">
+        <div class="job-rank">U7</div>
+        <span class="jbadge jbadge-pay">$15–$26/hr</span>
+        <span class="jbadge jbadge-platform">Upwork</span>
+        <span class="jbadge jbadge-source">Translation</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.upwork.com/nx/search/jobs/?q=native+speaker+translation+review+french&sort=recency" target="_blank">Native Speaker Translation Review</a>
+        <div class="job-company">Client — New (Unverified payment — apply with caution)</div>
+        <div class="job-meta"><span class="jmeta">$15–$26/hr</span><span class="jmeta">Part-time</span><span class="jmeta">Under 1 month</span><span class="jmeta">Caution: new client</span></div>
+        <div class="job-desc-preview">Review translations to ensure accuracy and natural sound. Verify fluency of provided translated text. Part-time, less than one month. Caution: payment is not yet verified — new client. Keep scope small for first delivery.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">$15–$26/hr for translation review. Matches your bilingual French/English skills. Client is new and payment unverified — lower trust. If you apply, deliver a small sample first before committing to the full scope.</div>
+        <div class="skills-row"><span class="skill-tag">Translation</span><span class="skill-tag">French</span><span class="skill-tag">English</span></div>
+        <a class="apply-btn" href="https://www.upwork.com/nx/search/jobs/?q=native+speaker+translation+review+french&sort=recency" target="_blank">Find on Upwork &#8594;</a>
+      </div>
+    </div>
+
+    <div class="job-card" data-search="upwork french conversation recording funcrowd pair france">
+      <div class="job-left">
+        <div class="job-rank">U8</div>
+        <span class="jbadge jbadge-pay">$45/person</span>
+        <span class="jbadge jbadge-platform">Upwork</span>
+        <span class="jbadge jbadge-source">Voice / Recording</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.upwork.com/nx/search/jobs/?q=french+conversation+recording&sort=recency" target="_blank">French Conversation Recording Projects (Multiple — FunCrowd)</a>
+        <div class="job-company">Various clients — Japan and Pakistan</div>
+        <div class="job-meta"><span class="jmeta">$16–$18/hr or $45/person</span><span class="jmeta">2.5 hours</span><span class="jmeta">Requires a partner</span><span class="jmeta">France French preferred</span></div>
+        <div class="job-desc-preview">Several conversation recording projects using the FunCrowd app. Record casual everyday topics with a partner (2 speakers). 2.5 hours, $45 per person. Note: most specify "France" French — worth applying as Quebec French speaker and letting the client decide.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Multiple French Conversation Recording Projects — FunCrowd app — Upwork
+
+Format: 2-person pair recording
+Topics: 5–7 casual everyday topics (education, sports, travel, entertainment, etc.)
+Duration: approximately 2.5 hours per pair
+Payment: $90 per pair — $45 per person
+Requirements: 2 devices per participant, smartphone, headphones (mandatory)
+
+Jobs in this group:
+- Native French (France) conversation recording — $18/hr — Pakistan (4.7/5)
+- French conversation recording project — $18/hr — Pakistan (4.9/5)
+- Fun Weekend Task: Casual French Conversations — $45/person — Japan (4.6/5)
+- Fun Sunday Task: Casual French Conversations — $45/person — Japan (4.7/5)
+- French Speakers France Pair Recording — $45/person — Japan (4.6/5)
+
+Most specify "France" French — but worth applying as Quebec French and letting the client decide.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Most of these say "France" French — your Quebec French is still native French. Apply to each and specify "native Quebec French speaker." The FunCrowd tasks require a partner — if you have a French-speaking friend or family member, you each earn $45 per session. Good extra income with no experience needed.</div>
+        <div class="skills-row"><span class="skill-tag">French</span><span class="skill-tag">Conversation</span><span class="skill-tag">Voice Recording</span></div>
+        <a class="apply-btn" href="https://www.upwork.com/nx/search/jobs/?q=french+conversation+recording&sort=recency" target="_blank">Search All on Upwork &#8594;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FROM EMAIL -->
+<section class="section" id="email-jobs">
+  <div class="section-title"><span class="num">3</span> From Your ProtonMail Inbox — May 31, 2026</div>
+  <p class="section-desc">Jobs found inside your ProtonMail emails today. No duplicates — the TD Bank job from email is already in the LinkedIn section above.</p>
+  <div class="jobs-list" id="jobs-email">
+
+    <!-- EMAIL JOB 1 — Voices.com #858493 EXPIRED -->
+    <div class="job-card expired" data-search="voices.com voice over english french ca accent security test call">
+      <div class="job-left">
+        <div class="job-rank expired-color">E1</div>
+        <span class="jbadge jbadge-pay">$250–$499</span>
+        <span class="jbadge jbadge-platform">Voices.com</span>
+        <span class="jbadge jbadge-expired">Expired May 30</span>
+        <span class="jbadge jbadge-source">Voice / Telephone</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.voices.com" target="_blank">Security Test Call — English with FR-CA Accent — Job #858493</a>
+        <div class="job-company">Kansas M. — Voices.com client (Rating 5.0/5 — 853 reviews)</div>
+        <div class="job-meta"><span class="jmeta">$250–$499</span><span class="jmeta">80% VoiceMatch</span><span class="jmeta">Deadline: May 30 — EXPIRED</span><span class="jmeta">Male voice</span></div>
+        <div class="job-desc-preview">Voices.com matched your profile at 80% for this job. Category: Telephone. Language: English. Accent: French Quebecois. Male voice. Word count: 700. Approx. 4 min 40 sec. This job has expired — but it shows your profile is getting strong matches. Check Voices.com daily for new invites.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Job #858493 — Voices.com Email Invite received May 28, 2026
+
+Title: Security Test Call — English with FR-CA Accent
+Budget: $250 – $499
+Client: Kansas M. — 5.0 stars — 853 reviews (extremely reliable client)
+VoiceMatch: 80%
+Response Deadline: May 30, 2026 — EXPIRED (deadline has passed)
+
+Job Details:
+- Category: Telephone
+- Language: English
+- Accent: French (Quebecois)
+- Voice Gender: Male
+- Word Count: 700
+- Finished Minutes: 0h 4m 40s
+- Live Directed Session: Any Software (No Preference)
+- Licensing: Non-Broadcast License (In-Perpetuity)
+
+ACTION: This job is expired. However, it confirms your Voices.com profile is generating strong matches (80%). Check voices.com daily and respond to new invites within 24 hours of receiving them.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Matters</button>
+        <div class="why-box">This expired job proves your Voices.com profile is working — 80% VoiceMatch from a 5-star client who has given 853 reviews. The next similar invite will come. Log into Voices.com now and check for open invites. Always respond within 24 hours of receiving a Voices.com email — these go fast.</div>
+        <div class="skills-row"><span class="skill-tag">English Voice</span><span class="skill-tag">Quebec Accent</span><span class="skill-tag">Telephone</span></div>
+        <a class="apply-btn red-btn" href="https://www.voices.com/jobs" target="_blank">Check Voices.com for New Invites &#8594;</a>
+      </div>
+    </div>
+
+    <!-- EMAIL JOB 2 — Voices.com #858492 EXPIRED -->
+    <div class="job-card expired" data-search="voices.com voice over french ca security test call">
+      <div class="job-left">
+        <div class="job-rank expired-color">E2</div>
+        <span class="jbadge jbadge-pay">$250–$499</span>
+        <span class="jbadge jbadge-platform">Voices.com</span>
+        <span class="jbadge jbadge-expired">Expired May 30</span>
+        <span class="jbadge jbadge-source">Voice / Telephone</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.voices.com" target="_blank">Security Test Call — FR-CA — Job #858492</a>
+        <div class="job-company">Kansas M. — Voices.com client (Rating 5.0/5 — 853 reviews)</div>
+        <div class="job-meta"><span class="jmeta">$250–$499</span><span class="jmeta">70% VoiceMatch</span><span class="jmeta">Deadline: May 30 — EXPIRED</span><span class="jmeta">French Quebecois</span></div>
+        <div class="job-desc-preview">Same client as E1. This job is in French (Quebecois) rather than English. 70% VoiceMatch. Budget $250–$499. Expired May 30. Both jobs from the same client sent 4 minutes apart — confirms your profile is showing up for this client's searches.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Job #858492 — Voices.com Email Invite received May 28, 2026
+
+Title: Security Test Call — FR-CA
+Budget: $250 – $499
+Client: Kansas M. — 5.0 stars — 853 reviews
+VoiceMatch: 70%
+Response Deadline: May 30, 2026 — EXPIRED
+
+Job Details:
+- Category: Telephone
+- Language: French
+- Accent: French (Quebecois)
+- Voice Gender: Male
+- Word Count: 700
+- Finished Minutes: 0h 4m 40s
+- Licensing: Non-Broadcast License (In-Perpetuity)
+
+Same client sent both jobs E1 and E2 within 4 minutes of each other. This is a high-value, trusted client actively looking for Quebec French male voice actors.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Matters</button>
+        <div class="why-box">Same 5-star client, same budget ($250–$499), now in French Quebecois. Both E1 and E2 came from this client in the same session — they are actively looking for a Quebec French male voice. The next invite will come. Make sure your Voices.com profile is fully complete and your demo is uploaded so you keep getting matched.</div>
+        <div class="skills-row"><span class="skill-tag">French Voice</span><span class="skill-tag">Quebec French</span><span class="skill-tag">Telephone</span></div>
+        <a class="apply-btn red-btn" href="https://www.voices.com/jobs" target="_blank">Check Voices.com for New Invites &#8594;</a>
+      </div>
+    </div>
+
+    <!-- EMAIL JOB 3 — TELUS Digital Media Search Analyst -->
+    <div class="job-card top" data-search="telus digital media search analyst french canadian remote">
+      <div class="job-left">
+        <div class="job-rank green">E3</div>
+        <span class="jbadge jbadge-pay">Remote Canada</span>
+        <span class="jbadge jbadge-platform">LinkedIn Alert</span>
+        <span class="jbadge jbadge-top">Top Pick</span>
+        <span class="jbadge jbadge-source">AI / Data</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/search/?keywords=TELUS+Digital+AI+Data+Solutions+Media+Search+Analyst+French+CA" target="_blank">Remote Media Search Analyst — French CA</a>
+        <div class="job-company">TELUS Digital AI Data Solutions</div>
+        <div class="job-meta"><span class="jmeta">Remote — Canada</span><span class="jmeta">No degree</span><span class="jmeta">French Canadian required</span><span class="jmeta">Flexible hours</span></div>
+        <div class="job-desc-preview">Rate and evaluate online content in Canadian French. AI data quality work. TELUS is one of Canada's major telecommunications companies — reliable employer. No degree required. Bilingual French/English and remote Canada.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">Remote Media Search Analyst — French CA — TELUS Digital AI Data Solutions
+
+Found in your LinkedIn Job Alert email (Voice French alert) received May 31, 2026.
+
+This role involves rating and evaluating online content, search results, and media in Canadian French to help improve AI systems.
+
+TELUS Digital AI Data Solutions is a major Canadian employer specializing in AI training data work. They hire remote contractors across Canada on a flexible basis.
+
+Key requirements:
+- Canadian French speaker
+- Remote from Canada
+- No university degree typically required for this type of role
+- Flexible hours — task-based work
+
+To find the full listing: search "TELUS Digital Media Search Analyst French CA" on LinkedIn or Google.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">TELUS Digital hires many bilingual French/English remote workers in Canada for AI evaluation work. Your native Canadian French and bilingual skills are exactly what they need. Major Canadian company, reliable pay, flexible remote hours. Search for this on LinkedIn now to find the current open posting.</div>
+        <div class="skills-row"><span class="skill-tag">Canadian French</span><span class="skill-tag">AI Evaluation</span><span class="skill-tag">Media Rating</span></div>
+        <a class="apply-btn green-btn" href="https://www.linkedin.com/jobs/search/?keywords=TELUS+Digital+AI+Data+Solutions+Media+Search+Analyst+French+CA" target="_blank">Find on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <!-- EMAIL JOB 4 — FBSPL Remote Customer Agent -->
+    <div class="job-card" data-search="fbspl remote customer agent entry level canada">
+      <div class="job-left">
+        <div class="job-rank">E4</div>
+        <span class="jbadge jbadge-pay">$50K–$65K USD/yr</span>
+        <span class="jbadge jbadge-platform">LinkedIn Alert</span>
+        <span class="jbadge jbadge-source">Customer Service</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/search/?keywords=FBSPL+Remote+Customer+Agent+Entry+Level+Canada" target="_blank">Remote Customer Agent — Entry Level</a>
+        <div class="job-company">FBSPL — Remote Canada</div>
+        <div class="job-meta"><span class="jmeta">$50K–$65K USD/yr</span><span class="jmeta">Entry Level</span><span class="jmeta">Remote — Canada</span></div>
+        <div class="job-desc-preview">Entry level remote customer service agent. Found in your LinkedIn job alert email. $50,000–$65,000 USD per year. Remote from Canada. No degree specified. Click the link to find the full posting on LinkedIn.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Entry level, remote, good pay range ($50K–$65K USD/yr). No degree specified for entry level. Your bilingual French/English is an advantage for any customer-facing remote role. Find the full listing on LinkedIn to verify requirements before applying.</div>
+        <div class="skills-row"><span class="skill-tag">Customer Service</span><span class="skill-tag">Entry Level</span><span class="skill-tag">Remote</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/search/?keywords=FBSPL+Remote+Customer+Agent+Entry+Level+Canada" target="_blank">Find on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+    <!-- EMAIL JOB 5 — Twine UGC Creator -->
+    <div class="job-card" data-search="twine ugc creator copywriter script writing remote">
+      <div class="job-left">
+        <div class="job-rank">E5</div>
+        <span class="jbadge jbadge-pay">Rate TBD</span>
+        <span class="jbadge jbadge-platform">Twine</span>
+        <span class="jbadge jbadge-source">Writing / Scripts</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.twine.net/projects/b9j9c0-ugc-creator-copywriter-remote-job" target="_blank">UGC Creator — Script Writing (Copywriter)</a>
+        <div class="job-company">PDF Company (anonymous) — via Twine</div>
+        <div class="job-meta"><span class="jmeta">Remote</span><span class="jmeta">Junior level</span><span class="jmeta">Script writing</span><span class="jmeta">Verify: no on-camera required</span></div>
+        <div class="job-desc-preview">Write 30-second testimonial video scripts for a PDF software company. Junior level, remote. Matched to your Copywriter profile on Twine. Note: UGC typically means user-generated content — verify whether this requires on-camera recording or writing scripts only.</div>
+        <button class="desc-toggle" onclick="toggleDesc(this)">&#9660; Show Full Description</button>
+        <div class="desc-full">UGC Creator — Twine — Remote — Junior — Copywriter
+
+From your Twine job alert email received May 28, 2026.
+
+Description (partial, email cut off): "We are a PDF company that helps people solve their problems. We are looking for someone to create 30-second testimonial video scripts. The scripts..."
+
+Job type: Copywriter (not listed as video production)
+Level: Junior
+Platform: Twine (twine.net)
+Status: More than a week old
+
+Why you were matched: You listed Copywriter and junior jobs on your Twine profile.
+
+IMPORTANT: UGC (User Generated Content) sometimes requires on-camera recording. The listing says "scripts" — but verify this is writing-only before applying. If it requires on-camera, it does not pass your hard filter.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Why This Fits You</button>
+        <div class="why-box">Script writing is in your skill set. Junior level means no experience required. Remote. The key thing to verify: does this require you to be on camera, or is it writing the scripts only? If it is writing only, this is a good fit. Click the link and read the full job posting to confirm before applying.</div>
+        <div class="skills-row"><span class="skill-tag">Script Writing</span><span class="skill-tag">Copywriting</span><span class="skill-tag">Junior</span></div>
+        <a class="apply-btn" href="https://www.twine.net/projects/b9j9c0-ugc-creator-copywriter-remote-job" target="_blank">View on Twine &#8594;</a>
+      </div>
+    </div>
+
+    <!-- EMAIL JOB 6 — Definity Bilingual Customer Service (HYBRID — FLAGGED) -->
+    <div class="job-card" data-search="definity bilingual customer service representative waterloo hybrid">
+      <div class="job-left">
+        <div class="job-rank">E6</div>
+        <span class="jbadge jbadge-pay">Rate TBD</span>
+        <span class="jbadge jbadge-platform">LinkedIn Alert</span>
+        <span class="jbadge jbadge-expired">Hybrid — Not Fully Remote</span>
+        <span class="jbadge jbadge-source">Customer Service</span>
+      </div>
+      <div class="job-right">
+        <a class="job-title-link" href="https://www.linkedin.com/jobs/search/?keywords=Definity+Bilingual+Customer+Service+Representative" target="_blank">Bilingual Representative, Customer Service</a>
+        <div class="job-company">Definity — Waterloo, ON</div>
+        <div class="job-meta"><span class="jmeta">Hybrid — Waterloo ON</span><span class="jmeta">Bilingual FR/EN</span><span class="jmeta">FLAG: Not fully remote</span></div>
+        <div class="job-desc-preview">Bilingual customer service role at Definity in Waterloo, Ontario. Listed as Hybrid — meaning some in-office days required in Waterloo. Flagged because you are based in Montreal and this is not fully remote. Included for reference — verify if fully remote is possible before applying.</div>
+        <button class="why-toggle" onclick="toggleWhy(this)">&#9654; Important Note</button>
+        <div class="why-box">This job is hybrid in Waterloo, Ontario — not fully remote. Since you are in Montreal, this does not pass your location filter unless they accept fully remote for Quebec-based employees. Check the full listing before applying. If it truly allows fully remote from Montreal, it could be worth considering given your bilingual skills.</div>
+        <div class="skills-row"><span class="skill-tag">Bilingual FR/EN</span><span class="skill-tag">Customer Service</span><span class="skill-tag">Hybrid</span></div>
+        <a class="apply-btn" href="https://www.linkedin.com/jobs/search/?keywords=Definity+Bilingual+Customer+Service+Representative" target="_blank">View on LinkedIn &#8594;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FILTERED OUT -->
+<section class="section" id="filtered">
+  <div class="section-title"><span class="num">4</span> Filtered Out — Did Not Pass</div>
+  <p class="section-desc">These jobs were found but rejected. Reason given for each.</p>
+  <div class="filtered-list">
+    <div class="filtered-item"><strong>LinkedIn — French Evaluator Expert (Mercor)</strong> — Rejected: requires BS/BA university degree.</div>
+    <div class="filtered-item"><strong>LinkedIn — Customer Service Agent (Sezzle)</strong> — Rejected: requires Bachelor's degree.</div>
+    <div class="filtered-item"><strong>LinkedIn — Portuguese AI Training (Prolific)</strong> — Rejected: Portuguese language only, not French or English.</div>
+    <div class="filtered-item"><strong>Upwork — Social Media Marketing Coordinator</strong> — Rejected: requires Bachelor's or Master's degree.</div>
+    <div class="filtered-item"><strong>Upwork — Teleprospecteur B2B francophone</strong> — Rejected: B2B cold calling, not a content or voice match.</div>
+    <div class="filtered-item"><strong>Upwork — YouTube Tutorial Creator at $1/video</strong> — Rejected: pay is far too low ($1 per video).</div>
+    <div class="filtered-item"><strong>Upwork — Mobile App Localization QA at $10 fixed</strong> — Rejected: new client, unverified payment, too low pay.</div>
+    <div class="filtered-item"><strong>Email — Loto-Quebec jobs (Technicien surveillance, Prepose aux tirages, Agent bureau)</strong> — Rejected: likely require in-person presence at Loto-Quebec locations in Montreal. Not fully remote.</div>
+    <div class="filtered-item"><strong>Email — Indeed Data Analyst jobs (CSL Group, Deloitte, etc.)</strong> — Rejected: require data analysis expertise and specialist credentials not matching your profile.</div>
+    <div class="filtered-item"><strong>Email — Content Creation Mentorship (Twine)</strong> — Rejected: this is someone looking to hire a mentor, not a freelance job for you.</div>
+    <div class="filtered-item"><strong>Email — Jack Roberts Skool notification</strong> — Not a job. Informational post in the AI Automation Vault group.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESOURCES -->
+<section class="section" id="resources">
+  <div class="section-title"><span class="num">5</span> Resources — Tools and Offers</div>
+  <p class="section-desc">Useful things found in your inbox today that are not jobs but help your career.</p>
+
+  <div class="resource-card">
+    <h4>Voices.com — Free "How to Start in Voice Over" Class</h4>
+    <p>Voices.com sent you a free class offer from Edge Studio. 1,200 people landed their first voice over job after taking it. The class is free for you using promo code <span class="resource-code">FREESTART</span>. Valid for 10 days from May 27, 2026 — expires around June 6, 2026. Go to the Voices.com scheduling page, pick a date from the dropdown, and enter the code at checkout. This class will show you how to refine your technique and optimize your home recording setup — both directly useful for the voice-over jobs in this report.</p>
+    <br>
+    <a class="apply-btn" href="https://www.voices.com" target="_blank">Go to Voices.com to Schedule &#8594;</a>
+    &nbsp;<span style="color:var(--muted);font-size:.8rem;">Promo code: <strong style="color:#eab308;">FREESTART</strong></span>
+  </div>
+
+  <div class="resource-card">
+    <h4>Upwork — 53 Connects Available</h4>
+    <p>You have 53 connects in your Upwork account right now. Most job proposals cost 6–16 connects. That gives you roughly 4–8 proposals at the current balance. Recommendation: buy more connects before applying to the high-priority Upwork jobs in this report. Prioritize the Quebec French Content Writer (U1) and HeyGen Localization (U2) first — those are the best paying matches.</p>
+  </div>
+
+  <div class="resource-card">
+    <h4>Upwork — 115 Saved Jobs</h4>
+    <p>You have 115 saved jobs on Upwork. Some of these may still be open and accepting proposals. Set aside 30 minutes to review your saved job list — filter by "still open" — and apply to the best ones. Some good matches could already be there waiting.</p>
+    <br>
+    <a class="apply-btn" href="https://www.upwork.com/nx/find-work/saved" target="_blank">Review Saved Jobs on Upwork &#8594;</a>
+  </div>
+</section>
+
+</div><!-- end container -->
+
+<script>
+// Nav active state
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+
+// CLICK TITLE TO EXPAND/COLLAPSE CARD
+document.querySelectorAll('.job-title-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault(); // block navigation — use the Apply button instead
+    const card = this.closest('.job-card');
+    card.classList.toggle('expanded');
+  });
+});
+
+// Toggle full description (inside expanded card)
+function toggleDesc(btn) {
+  const full = btn.nextElementSibling;
+  const open = full.classList.toggle('open');
+  btn.textContent = open ? '▲ Hide Description' : '▼ Show Full Description';
+}
+
+// Toggle why box (inside expanded card)
+function toggleWhy(btn) {
+  const box = btn.nextElementSibling;
+  const open = box.classList.toggle('open');
+  btn.textContent = open ? '◀ Hide' : '▶ Why This Fits You';
+}
+
+// Search filter — also auto-expands matching cards
+function filterJobs(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.job-card').forEach(card => {
+    const text = (card.dataset.search || '') + ' ' + card.innerText.toLowerCase();
+    const matches = q.length === 0 || text.includes(q);
+    card.classList.toggle('search-hidden', !matches);
+    if (matches && q.length > 0) card.classList.add('expanded');
+    if (q.length === 0) card.classList.remove('expanded');
+  });
+}
+</script>
+</body>
+</html>
