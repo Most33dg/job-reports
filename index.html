@@ -88,6 +88,10 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 
 /* ACTION BUTTONS */
 .jcard.exp .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+/* Always-visible status row (visible in both collapsed and expanded cards) */
+.collapsed-status{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.collapsed-status .lbl{font-size:.62rem;color:var(--mt);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-right:4px}
+.jcard.exp .collapsed-status{padding-bottom:8px;border-bottom:1px solid var(--border);margin-bottom:6px}
 .abtn{display:inline-block;background:linear-gradient(135deg,var(--accent),#5a4aff);color:#fff;text-decoration:none;padding:8px 18px;border-radius:7px;font-size:.82rem;font-weight:700;transition:opacity .2s}
 .abtn:hover{opacity:.85}
 .abtn.g{background:linear-gradient(135deg,#00c49a,#009a78)}
@@ -222,6 +226,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">Voice Actor — French Speakers (AI Training)</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j1','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j1','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j1','no')">Not Interested</button>
+</div>
 <div class="jco">Alignerr</div>
 <div class="jmeta"><span class="jm">Hourly Contract</span><span class="jm">Remote — Canada</span><span class="jm">Flexible</span><span class="jm">No degree</span></div>
 <div class="jdesc">Record high-quality French voice samples from provided scripts and prompts. Evaluate AI-generated voice outputs for naturalness, pronunciation, and expressiveness. Provide feedback to improve AI speech quality. Work asynchronously on your own schedule. Native or near-native French required. Quebec regional French is welcomed. High-quality microphone and quiet recording environment required — you have this. No prior AI or tech experience needed. Highest pay in this report at $170–$200 USD/hr.</div>
@@ -253,6 +263,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">AI Voice Trainer — English (Contract)</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j2','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j2','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j2','no')">Not Interested</button>
+</div>
 <div class="jco">Alignerr</div>
 <div class="jmeta"><span class="jm">Hourly Contract</span><span class="jm">Remote</span><span class="jm">Flexible</span><span class="jm">No degree</span></div>
 <div class="jdesc">Record English voice samples and evaluate AI voice outputs. Your bilingual ability means you can do both this AND the French role. Asynchronous, your own schedule. Quality microphone and quiet recording space required. No tech background needed. Pay range varies — top performers reach the higher end.</div>
@@ -284,6 +300,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">French Canadian Talent Hub — Welo Data</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j3','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j3','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j3','no')">Not Interested</button>
+</div>
 <div class="jco">Welo Data (formerly Welocalize Talent)</div>
 <div class="jmeta"><span class="jm">Talent Network</span><span class="jm">Remote — Canada</span><span class="jm">Project-based</span><span class="jm">No degree</span></div>
 <div class="jdesc">Join the Welo Data talent community. Get first access to flexible, remote AI projects in annotation, evaluation, and prompt creation for Canadian French. Native or near-native French required, English proficiency, comfortable with digital tools. Short application form takes a few minutes.</div>
@@ -315,6 +337,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">French Language Expert — AI Training</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j4','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j4','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j4','no')">Not Interested</button>
+</div>
 <div class="jco">Outlier AI</div>
 <div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Your own schedule</span><span class="jm">Paid weekly</span></div>
 <div class="jdesc">Rate AI outputs in French. Provide expert human feedback to improve AI models. Outlier connects 700,000+ experts worldwide. Work when and where you want. Paid weekly based on work completed. Native fluency in French required. Strong command of grammar, syntax, and cultural nuances.</div>
@@ -345,6 +373,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">Outlier — All Open Opportunities</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j5','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j5','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j5','no')">Not Interested</button>
+</div>
 <div class="jco">Outlier AI Expert Platform</div>
 <div class="jmeta"><span class="jm">Multiple roles</span><span class="jm">Remote</span><span class="jm">Self-paced</span></div>
 <div class="jdesc">Browse all current open Outlier positions in one place. Filter by language, skill, and project type. New projects added regularly. Sign in to see personalized matches.</div>
@@ -376,6 +410,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">Bilingual Content Editor (French) — AI Trainer</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j6','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j6','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j6','no')">Not Interested</button>
+</div>
 <div class="jco">DataAnnotation.tech</div>
 <div class="jmeta"><span class="jm">$25+/hr</span><span class="jm">Remote</span><span class="jm">Full or part-time</span><span class="jm">Your schedule</span></div>
 <div class="jdesc">Give AI chatbots writing and editing tasks and evaluate their outputs. Choose which projects you want. Work on your own schedule. Starting at $25+ USD/hr with bonuses for high quality and volume work. Fluency in English and French required. Degree preferred but NOT required — entry level accepted.</div>
@@ -406,6 +446,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">Over-the-Phone Interpreter — French/English</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j7','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j7','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j7','no')">Not Interested</button>
+</div>
 <div class="jco">LanguageLine Solutions</div>
 <div class="jmeta"><span class="jm">Hourly</span><span class="jm">Remote</span><span class="jm">Paid training</span><span class="jm">No degree</span></div>
 <div class="jdesc">Real-time phone interpretation for healthcare, legal, and financial services calls. LanguageLine provides paid training. No degree needed. Bilingual French/English mandatory. Quiet workspace and headset required.</div>
@@ -436,6 +482,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">Freelance Transcriptionist & Captioner</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j8','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j8','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j8','no')">Not Interested</button>
+</div>
 <div class="jco">Rev.com</div>
 <div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Pick your work</span><span class="jm">No experience</span></div>
 <div class="jdesc">Transcribe audio and add captions to videos. Pick the jobs you want from a queue. Pay per minute of finished audio. Weekly payouts via PayPal. English transcription is the main work — bilingual ear helps with mixed-language content.</div>
@@ -466,6 +518,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">French Transcriptionist — Freelance</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j9','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j9','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j9','no')">Not Interested</button>
+</div>
 <div class="jco">GoTranscript</div>
 <div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Weekly pay</span><span class="jm">No experience</span></div>
 <div class="jdesc">Transcribe French audio to text. Pick jobs from a queue. Pay per audio minute — $0.60 to $1.10/minute depending on difficulty. Weekly payments via PayPal or Payoneer. Native French speakers earn the higher rates.</div>
@@ -496,6 +554,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">Appen — French Canadian AI Projects</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j10','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j10','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j10','no')">Not Interested</button>
+</div>
 <div class="jco">Appen Global</div>
 <div class="jmeta"><span class="jm">Multiple roles</span><span class="jm">Remote</span><span class="jm">Project-based</span></div>
 <div class="jdesc">Major AI data company. French Canadian crowd workers do search relevance evaluation, ad rating, and AI training tasks. Apply once, get matched to projects as they open. Most tasks paid per completion.</div>
@@ -526,6 +590,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">Upwork — French Voice-Over Jobs (Live Search)</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j11','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j11','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j11','no')">Not Interested</button>
+</div>
 <div class="jco">Upwork Marketplace</div>
 <div class="jmeta"><span class="jm">Browse jobs</span><span class="jm">Logged in</span><span class="jm">53 connects available</span></div>
 <div class="jdesc">Live Upwork search showing all current French voice-over jobs sorted by most recent. You are already logged in to Upwork with 53 connects available. New jobs post every hour. Make sure Brave Shields are OFF for upwork.com.</div>
@@ -556,6 +626,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 </div>
 <div class="jright">
 <div class="jtitle" onclick="toggleCard(this)">Upwork — French Translation & Content Writing (Live Search)</div>
+<div class="collapsed-status">
+<span class="lbl">Status:</span>
+<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j12','applied')">Applied</button>
+<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j12','process')">In Process</button>
+<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j12','no')">Not Interested</button>
+</div>
 <div class="jco">Upwork Marketplace</div>
 <div class="jmeta"><span class="jm">Browse jobs</span><span class="jm">Logged in</span><span class="jm">Multiple categories</span></div>
 <div class="jdesc">Live Upwork search showing all current French translation and bilingual content writing jobs, sorted by most recent. Quebec French expertise is your edge for Canadian market projects.</div>
@@ -652,9 +728,9 @@ function applyStatusToCard(id,status){
   if(!card)return;
   card.classList.remove('status-applied','status-process','status-no');
   card.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));
-  if(status==='applied'){card.classList.add('status-applied');card.querySelector('.applied-btn').classList.add('active');}
-  if(status==='process'){card.classList.add('status-process');card.querySelector('.process-btn').classList.add('active');}
-  if(status==='no'){card.classList.add('status-no');card.querySelector('.no-btn').classList.add('active');}
+  if(status==='applied'){card.classList.add('status-applied');card.querySelectorAll('.applied-btn').forEach(b=>b.classList.add('active'));}
+  if(status==='process'){card.classList.add('status-process');card.querySelectorAll('.process-btn').forEach(b=>b.classList.add('active'));}
+  if(status==='no'){card.classList.add('status-no');card.querySelectorAll('.no-btn').forEach(b=>b.classList.add('active'));}
 }
 function setStatus(id,status){
   const all=loadStatuses();
