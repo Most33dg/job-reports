@@ -1,776 +1,631 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Live Job Report — Malaka O.</title>
-<style>
-:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--border:#2a2a40;--accent:#7c6aff;--a3:#00d4aa;--orange:#ff9933;--red:#ff6b6b;--yellow:#eab308;--text:#e8e8f0;--mt:#8888aa}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6}
-.hdr{background:linear-gradient(135deg,#0a0a1a,#1a0a2e,#0a1a2e);padding:44px 36px 28px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
-.hdr::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(124,106,255,.08) 0%,transparent 70%);pointer-events:none}
-.hdr h1{font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,#fff,#c4b5ff,#7c6aff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;position:relative}
-.hdr p{color:var(--mt);font-size:.88rem;margin-bottom:16px;position:relative}
-.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative}
-.stat{background:rgba(124,106,255,.1);border:1px solid rgba(124,106,255,.3);border-radius:9px;padding:8px 14px}
-.stat .n{font-size:1.2rem;font-weight:700;color:var(--accent)}
-.stat .l{font-size:.66rem;color:var(--mt);text-transform:uppercase;letter-spacing:1px}
-.live-counters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;position:relative}
-.lc{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:6px}
-.lc-dot{width:8px;height:8px;border-radius:50%}
-.lc-dot.applied{background:var(--a3)}
-.lc-dot.process{background:var(--yellow)}
-.lc-dot.no{background:var(--red)}
-.lc span{font-size:.74rem;color:var(--mt);font-weight:600}
-.lc strong{font-size:.84rem;color:var(--text)}
-
-nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 18px;position:sticky;top:0;z-index:200;display:flex;overflow-x:auto;align-items:center}
-nav a{color:var(--mt);text-decoration:none;padding:11px 13px;font-size:.8rem;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
-nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
-.nav-search{margin-left:auto;padding:6px 0}
-.nav-search input{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:18px;color:var(--text);font-size:.78rem;padding:6px 30px 6px 12px;width:190px;outline:none;font-family:inherit}
-.nav-search input:focus{border-color:var(--accent);width:250px}
-.nav-search input::placeholder{color:var(--mt)}
-
-.wrap{max-width:1100px;margin:0 auto;padding:28px 24px}
-.sec{margin-bottom:52px}
-.stitle{font-size:1.15rem;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:8px}
-.stitle .n{background:var(--accent);color:#fff;width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:800}
-.sdesc{color:var(--mt);margin-bottom:16px;font-size:.82rem}
-.div{height:1px;background:var(--border);margin-bottom:52px}
-
-.today{background:linear-gradient(135deg,rgba(0,212,170,.07),rgba(124,106,255,.07));border:1px solid rgba(0,212,170,.3);border-radius:11px;padding:18px 22px;margin-bottom:24px}
-.today h3{font-size:.8rem;font-weight:800;color:var(--a3);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
-.ti{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-.ti:last-child{border-bottom:none;padding-bottom:0}
-.trank{background:var(--a3);color:#000;font-size:.72rem;font-weight:800;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.ti-info{flex:1;min-width:0}
-.ti h4{font-size:.85rem;font-weight:700;margin-bottom:3px}
-.ti p{font-size:.76rem;color:var(--mt);margin-bottom:6px}
-.ta{display:inline-block;background:var(--a3);color:#000;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:6px;text-decoration:none}
-.ta:hover{opacity:.85}
-.pg{display:inline-block;background:rgba(0,212,170,.15);border:1px solid rgba(0,212,170,.3);color:var(--a3);font-size:.66rem;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:5px}
-
-.verified-badge{background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.25);border-radius:9px;padding:10px 16px;margin-bottom:24px;font-size:.78rem;color:var(--a3);display:flex;align-items:center;gap:8px}
-.verified-badge::before{content:'✓';font-weight:900;font-size:.95rem}
-
-.jlist{display:flex;flex-direction:column;gap:14px}
-.jcard{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;transition:all .25s;position:relative}
-.jcard:hover{border-color:rgba(124,106,255,.4)}
-.jcard.top{border-color:rgba(0,212,170,.3)}
-.jcard.status-applied{border-color:rgba(0,212,170,.5);background:linear-gradient(to right,rgba(0,212,170,.06),var(--bg2) 30%)}
-.jcard.status-process{border-color:rgba(234,179,8,.5);background:linear-gradient(to right,rgba(234,179,8,.06),var(--bg2) 30%)}
-.jcard.status-no{border-color:rgba(255,107,107,.4);opacity:.55}
-.jleft{width:135px;flex-shrink:0;background:var(--bg3);border-right:1px solid var(--border);padding:14px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
-.jr{font-size:1.6rem;font-weight:900;color:var(--accent);line-height:1}
-.jr.g{color:var(--a3)}
-.jb{font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase;white-space:nowrap}
-.bp{background:rgba(0,212,170,.15);border:1px solid rgba(0,212,170,.3);color:var(--a3)}
-.bpl{background:rgba(124,106,255,.12);border:1px solid rgba(124,106,255,.25);color:#b0a0ff}
-.bt{background:rgba(0,212,170,.2);border:1px solid rgba(0,212,170,.4);color:var(--a3)}
-.bv{background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);color:var(--a3);font-size:.56rem}
-.jright{flex:1;padding:14px 18px;min-width:0}
-.jtitle{font-size:.95rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:6px;line-height:1.3;user-select:none}
-.jtitle::after{content:'▼';font-size:.65rem;color:var(--mt);flex-shrink:0;transition:transform .2s}
-.jcard.exp .jtitle::after{content:'▲';color:var(--accent)}
-
-.jco,.jmeta,.jdesc,.dtog,.wtog,.wbox,.skrow,.actions{display:none}
-.jcard.exp .jco{display:block;font-size:.78rem;color:var(--a3);font-weight:600;margin-top:4px;margin-bottom:8px}
-.jcard.exp .jmeta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
-.jm{font-size:.69rem;color:var(--mt);background:var(--bg3);border:1px solid var(--border);padding:2px 6px;border-radius:4px}
-.jcard.exp .jdesc{display:block;font-size:.8rem;color:var(--mt);line-height:1.55;margin-bottom:10px}
-.jcard.exp .wtog{display:inline-block;background:none;border:1px solid rgba(124,106,255,.25);color:var(--accent);font-size:.72rem;padding:3px 9px;border-radius:5px;cursor:pointer;margin-bottom:8px;font-family:inherit}
-.wbox{font-size:.78rem;color:#c0e0ff;line-height:1.55;background:rgba(124,106,255,.06);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 5px 5px 0;margin-bottom:10px}
-.wbox.open{display:block}
-.jcard.exp .skrow{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-.sk{background:var(--bg3);border:1px solid var(--border);color:var(--mt);font-size:.66rem;padding:2px 6px;border-radius:3px}
-
-/* ACTION BUTTONS */
-.jcard.exp .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
-/* Always-visible status row (visible in both collapsed and expanded cards) */
-.collapsed-status{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
-.collapsed-status .lbl{font-size:.62rem;color:var(--mt);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-right:4px}
-.jcard.exp .collapsed-status{padding-bottom:8px;border-bottom:1px solid var(--border);margin-bottom:6px}
-.abtn{display:inline-block;background:linear-gradient(135deg,var(--accent),#5a4aff);color:#fff;text-decoration:none;padding:8px 18px;border-radius:7px;font-size:.82rem;font-weight:700;transition:opacity .2s}
-.abtn:hover{opacity:.85}
-.abtn.g{background:linear-gradient(135deg,#00c49a,#009a78)}
-.status-btns{display:flex;gap:6px;margin-left:auto}
-.sbtn{background:transparent;color:var(--mt);border:1px solid var(--border);font-size:.7rem;font-weight:700;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.5px;transition:all .15s}
-.sbtn:hover{border-color:var(--accent);color:var(--text)}
-.sbtn.applied-btn{border-color:rgba(0,212,170,.3)}
-.sbtn.applied-btn.active{background:var(--a3);color:#000;border-color:var(--a3)}
-.sbtn.process-btn{border-color:rgba(234,179,8,.3)}
-.sbtn.process-btn.active{background:var(--yellow);color:#000;border-color:var(--yellow)}
-.sbtn.no-btn{border-color:rgba(255,107,107,.3)}
-.sbtn.no-btn.active{background:var(--red);color:#000;border-color:var(--red)}
-
-/* STATUS BANNER on collapsed card */
-.status-banner{position:absolute;top:8px;right:12px;font-size:.6rem;font-weight:800;padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:1px;display:none;z-index:5}
-.jcard.status-applied .status-banner.applied-tag{display:inline-block;background:var(--a3);color:#000}
-.jcard.status-process .status-banner.process-tag{display:inline-block;background:var(--yellow);color:#000}
-.jcard.status-no .status-banner.no-tag{display:inline-block;background:var(--red);color:#000}
-
-/* HISTORY */
-.history-list{display:flex;flex-direction:column;gap:8px}
-.hi{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:all .2s}
-.hi:hover{border-color:rgba(124,106,255,.4);background:var(--bg3)}
-.hi .info .d{font-size:.85rem;font-weight:700;color:var(--text)}
-.hi .info .s{font-size:.72rem;color:var(--mt);margin-top:2px}
-.hi .open{background:rgba(124,106,255,.12);border:1px solid rgba(124,106,255,.3);color:#b0a0ff;text-decoration:none;font-size:.74rem;font-weight:700;padding:5px 12px;border-radius:5px;white-space:nowrap}
-.hi .open:hover{background:rgba(124,106,255,.22)}
-
-/* PLATFORMS QUICK ACCESS */
-.platforms-quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
-.pq{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;text-decoration:none;color:var(--text);font-size:.8rem;font-weight:600;transition:all .2s;text-align:center}
-.pq:hover{border-color:var(--accent);background:var(--bg3);transform:translateY(-1px)}
-.pq .sub{display:block;font-size:.66rem;color:var(--mt);font-weight:400;margin-top:2px;text-transform:uppercase;letter-spacing:1px}
-
-.note-info{background:rgba(124,106,255,.06);border:1px solid rgba(124,106,255,.2);border-radius:9px;padding:14px 18px;font-size:.82rem;color:#b0a0ff;margin-bottom:24px;line-height:1.6}
-.search-hidden{display:none}
-
-.live{background:var(--bg2);border:1px solid rgba(0,212,170,.2);border-radius:8px;padding:10px 16px;font-size:.78rem;color:var(--a3);margin-bottom:24px}
-.live a{color:var(--a3);font-weight:700}
-
-.reset-btn{background:transparent;border:1px solid var(--border);color:var(--mt);font-size:.72rem;padding:5px 12px;border-radius:5px;cursor:pointer;font-family:inherit;margin-left:8px}
-.reset-btn:hover{border-color:var(--red);color:var(--red)}
-</style>
-</head>
-<body>
-
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Job Scan — Jun 2 2026 08:00 Montreal</title><style>:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;--border:#2a2a40;--accent:#7c6aff;--a3:#00d4aa;--text:#e8e8f0;--mt:#8888aa}*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6}.hdr{background:linear-gradient(135deg,#0a0a1a,#1a0a2e,#0a1a2e);padding:44px 36px 28px;text-align:center;border-bottom:1px solid var(--border)}.hdr h1{font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,#fff,#c4b5ff,#7c6aff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}.hdr p{color:var(--mt);font-size:.88rem;margin-bottom:16px}.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.stat{background:rgba(124,106,255,.1);border:1px solid rgba(124,106,255,.3);border-radius:9px;padding:8px 14px}.stat .n{font-size:1.2rem;font-weight:700;color:var(--accent)}.stat .l{font-size:.66rem;color:var(--mt);text-transform:uppercase;letter-spacing:1px}nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 18px;position:sticky;top:0;z-index:200;display:flex;overflow-x:auto}nav a{color:var(--mt);text-decoration:none;padding:11px 13px;font-size:.8rem;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}nav a:hover{color:var(--text);border-bottom-color:var(--accent)}.wrap{max-width:1100px;margin:0 auto;padding:28px 24px}.sec{margin-bottom:52px}.stitle{font-size:1.15rem;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:8px}.stitle .n{background:var(--accent);color:#fff;width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:800}.sdesc{color:var(--mt);margin-bottom:16px;font-size:.82rem}.div{height:1px;background:var(--border);margin-bottom:52px}.today{background:linear-gradient(135deg,rgba(0,212,170,.07),rgba(124,106,255,.07));border:1px solid rgba(0,212,170,.3);border-radius:11px;padding:18px 22px}.today h3{font-size:.8rem;font-weight:800;color:var(--a3);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}.ti{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05)}.ti:last-child{border-bottom:none;padding-bottom:0}.trank{background:var(--a3);color:#000;font-size:.68rem;font-weight:800;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}.ti h4{font-size:.82rem;font-weight:700;margin-bottom:2px}.ti p{font-size:.73rem;color:var(--mt);margin-bottom:4px}.ta{display:inline-block;background:var(--a3);color:#000;font-size:.69rem;font-weight:700;padding:2px 9px;border-radius:4px;text-decoration:none}.pg{display:inline-block;background:rgba(0,212,170,.15);border:1px solid rgba(0,212,170,.3);color:var(--a3);font-size:.65rem;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px}.jlist{display:flex;flex-direction:column;gap:12px}.jcard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;transition:all .3s}.jcard:hover{border-color:rgba(124,106,255,.4)}.jcard.top{border-color:rgba(0,212,170,.3)}.jleft{width:145px;flex-shrink:0;background:var(--bg3);border-right:1px solid var(--border);padding:14px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}.jr{font-size:1.6rem;font-weight:900;color:var(--accent);line-height:1}.jr.g{color:var(--a3)}.jb{font-size:.6rem;font-weight:700;padding:2px 5px;border-radius:4px;text-transform:uppercase;white-space:nowrap}.bp{background:rgba(0,212,170,.15);border:1px solid rgba(0,212,170,.3);color:var(--a3)}.bpl{background:rgba(124,106,255,.12);border:1px solid rgba(124,106,255,.25);color:#b0a0ff}.bt{background:rgba(0,212,170,.2);border:1px solid rgba(0,212,170,.4);color:var(--a3)}.jright{flex:1;padding:13px 17px;min-width:0}.jtitle{font-size:.9rem;font-weight:700;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:6px;line-height:1.3}.jtitle::after{content:'▼';font-size:.6rem;color:var(--mt);flex-shrink:0}.jcard.exp .jtitle::after{content:'▲';color:var(--accent)}.jco,.jmeta,.jdesc,.dtog,.wtog,.wbox,.skrow,.abtn{display:none}.jcard.exp .jco{display:block;font-size:.76rem;color:var(--a3);font-weight:600;margin-top:3px;margin-bottom:6px}.jcard.exp .jmeta{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}.jm{font-size:.67rem;color:var(--mt);background:var(--bg3);border:1px solid var(--border);padding:1px 5px;border-radius:4px}.jcard.exp .jdesc{display:block;font-size:.77rem;color:var(--mt);line-height:1.5;margin-bottom:6px}.jcard.exp .dtog{display:block;background:none;border:1px solid var(--border);color:var(--mt);font-size:.71rem;padding:3px 8px;border-radius:4px;cursor:pointer;width:100%;text-align:left;margin-bottom:5px;font-family:inherit}.dfull{display:none;font-size:.75rem;color:var(--mt);line-height:1.5;white-space:pre-wrap;background:var(--bg3);border-radius:5px;padding:9px;margin-bottom:6px;border:1px solid var(--border)}.dfull.open{display:block}.jcard.exp .wtog{display:inline-block;background:none;border:1px solid rgba(124,106,255,.25);color:var(--accent);font-size:.69rem;padding:2px 8px;border-radius:4px;cursor:pointer;margin-bottom:5px;font-family:inherit}.wbox{background:rgba(124,106,255,.06);border-left:3px solid var(--accent);padding:6px 10px;border-radius:0 4px 4px 0;font-size:.75rem;color:#c0e0ff;line-height:1.5;margin-bottom:6px}.wbox.open{display:block}.jcard.exp .skrow{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}.sk{background:var(--bg3);border:1px solid var(--border);color:var(--mt);font-size:.64rem;padding:1px 5px;border-radius:3px}.jcard.exp .abtn{display:inline-block;background:linear-gradient(135deg,var(--accent),#5a4aff);color:#fff;text-decoration:none;padding:6px 14px;border-radius:6px;font-size:.76rem;font-weight:700}.abtn.g{background:linear-gradient(135deg,#00c49a,#009a78)}.flist{display:flex;flex-direction:column;gap:5px}.fi{background:rgba(255,107,107,.05);border:1px solid rgba(255,107,107,.18);border-radius:5px;padding:6px 11px;font-size:.74rem;color:#ff9999}.fi strong{color:#ffbbbb}.live{background:var(--bg2);border:1px solid rgba(0,212,170,.2);border-radius:8px;padding:10px 16px;font-size:.78rem;color:var(--a3);margin-bottom:24px}.live a{color:var(--a3);font-weight:700}</style></head><body>
 <div class="hdr">
-<h1>Live Job Report — Malaka O.</h1>
-<p>Hand-verified jobs · No customer support · All links checked · Updated June 2, 2026</p>
-<div class="stats">
-  <div class="stat"><div class="n">12</div><div class="l">Verified Jobs</div></div>
-  <div class="stat"><div class="n">11</div><div class="l">Platforms</div></div>
-  <div class="stat"><div class="n">100%</div><div class="l">Working Links</div></div>
+  <h1>Job Scan — Jun 2 2026 08:00 Montreal</h1>
+  <p>Automated scan — Malaka O. — Bilingual FR/EN — Montreal Quebec</p>
+  <div class="stats">
+    <div class="stat"><div class="n">10</div><div class="l">Jobs Found</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">Top Picks</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">Filtered Out</div></div>
+  </div>
 </div>
-<div class="live-counters">
-  <div class="lc"><span class="lc-dot applied"></span><span>Applied:</span><strong id="cnt-applied">0</strong></div>
-  <div class="lc"><span class="lc-dot process"></span><span>In Process:</span><strong id="cnt-process">0</strong></div>
-  <div class="lc"><span class="lc-dot no"></span><span>Not Interested:</span><strong id="cnt-no">0</strong></div>
-</div>
-</div>
-
 <nav>
-<a href="#today">Do These Today</a>
-<a href="#jobs">All Verified Jobs</a>
-<a href="#platforms">Platforms</a>
-<a href="#history">History</a>
-<div class="nav-search"><input type="text" id="searchInput" placeholder="Search jobs..." oninput="filterJobs(this.value)"></div>
+  <a href="#today">Do These Today</a>
+  <a href="#jobs">All Jobs</a>
+  <a href="#filtered">Filtered Out</a>
 </nav>
-
 <div class="wrap">
+  <div class="live">Live report — updates automatically 4x daily — <a href="https://most33dg.github.io/job-reports/">https://most33dg.github.io/job-reports/</a></div>
 
-<div class="live">Live website — bookmark this on your phone: <a href="https://most33dg.github.io/job-reports/">https://most33dg.github.io/job-reports/</a></div>
+  <section class="sec" id="today">
+    <div class="stitle"><span class="n">!</span> Do These Today</div>
+    <p class="sdesc">Top 3 to apply to right now. Click any job title below for full details and the apply button.</p>
+    <div class="today">
+      <h3>Apply to These First</h3>
+      <div class="ti">
+        <div class="trank">1</div>
+        <div>
+          <h4>AI Data Annotator — French Canada (Welocalize) <span class="pg">~$20/hr</span></h4>
+          <p>Direct apply link on Lever.co — bilingual FR/EN AI annotation, no degree, start quickly as freelance.</p>
+          <a class="ta" href="https://jobs.lever.co/welocalize/a4eea322-dd9f-49ef-8b5b-df7620786b91/apply" target="_blank">Apply Now</a>
+        </div>
+      </div>
+      <div class="ti">
+        <div class="trank">2</div>
+        <div>
+          <h4>Bilingual CSR French/English Remote — Concentrix <span class="pg">~$19-22/hr</span></h4>
+          <p>Permanent full-time remote role, high school diploma only — strong pay, immediate openings across Canada.</p>
+          <a class="ta" href="https://jobs.concentrix.com/canada/job/phn-phn-16188110/" target="_blank">Apply Now</a>
+        </div>
+      </div>
+      <div class="ti">
+        <div class="trank">3</div>
+        <div>
+          <h4>Bilingual French Roadside Support — Arise Work From Home <span class="pg">$19.50/hr</span></h4>
+          <p>Flexible remote contract, no degree required, bilingual French/English roadside assistance inbound calls.</p>
+          <a class="ta" href="https://www.ariseworkfromhome.com/program/french-bilingual-roadside-customer-support-in-canada-remote/" target="_blank">Apply Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="verified-badge">All links manually verified. Click any title to expand. Use the green/yellow/red buttons to track your application status — your clicks are saved on this device.</div>
+  <div class="div"></div>
 
-<!-- DO THESE TODAY -->
-<section class="sec" id="today">
-<div class="stitle"><span class="n">!</span> Do These Today</div>
-<p class="sdesc">Top 3 to apply to right now. Highest paying, fastest start, verified links.</p>
-<div class="today">
-<h3>Apply to These First</h3>
+  <section class="sec" id="jobs">
+    <div class="stitle"><span class="n">1</span> All Jobs Found</div>
+    <p class="sdesc">Click any job title to expand — full description, skills, and apply button appear. Ranked: pay highest first.</p>
+    <div class="jlist">
 
-<div class="ti">
-<div class="trank">1</div>
-<div class="ti-info">
-<h4>Alignerr — Voice Actor French Speakers <span class="pg">$170–$200/hr</span></h4>
-<p>Top paying voice role. Record French samples from home. No degree. Your Fifine K688 + Maono setup is exactly what they need.</p>
-<a class="ta" href="https://www.alignerr.com/jobs/3bc4f9b3-6144-44cf-97ab-4d41206e3680" target="_blank">Apply on Alignerr →</a>
-</div>
-</div>
+      <!-- CARD 1: Rev French Subtitle Translator (TOP) -->
+      <div class="jcard top">
+        <div class="jleft">
+          <div class="jr g">1</div>
+          <span class="jb bp">$20-30/hr</span>
+          <span class="jb bpl">rev.com</span>
+          <span class="jb bt">Top Pick</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">French Subtitle Translator — Freelance</div>
+          <div class="jco">Rev</div>
+          <div class="jmeta">
+            <span class="jm">Freelance</span>
+            <span class="jm">Remote — Canada</span>
+            <span class="jm">Entry Level</span>
+            <span class="jm">Self-paced</span>
+          </div>
+          <div class="jdesc">Rev hires freelance subtitle translators to convert English audio/video content into French subtitles. You set your own hours, work from anywhere, and get paid weekly via PayPal. Pays $1.70–$4.00 per audio/video minute, translating to approximately $20–30/hr effective once you build speed.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">Rev is one of the largest freelance transcription and captioning platforms. As a French Subtitle Translator you will:
 
-<div class="ti">
-<div class="trank">2</div>
-<div class="ti-info">
-<h4>Welo Data — French Canadian Talent Hub <span class="pg">Project-based</span></h4>
-<p>Join Welo's talent network. Get matched to French Canadian AI annotation projects. Quick application form. No degree.</p>
-<a class="ta" href="https://welocalize.com/welo-data/" target="_blank">Apply on Welo Data →</a>
-</div>
-</div>
+- Receive English audio/video files and produce French subtitle files with accurate timing
+- Work 100% remotely on your own schedule — pick up tasks when you want
+- Start earning within 1–2 weeks of passing Rev's quality assessment (short translation sample required)
+- Get paid weekly every Friday via PayPal
 
-<div class="ti">
-<div class="trank">3</div>
-<div class="ti-info">
-<h4>Outlier AI — French Language Expert <span class="pg">Up to $25/hr</span></h4>
-<p>Rate AI outputs in French. Work your own schedule. Paid weekly. Verified live opportunities page.</p>
-<a class="ta" href="https://outlier.ai/languages/fr-fr" target="_blank">Apply on Outlier →</a>
-</div>
-</div>
+Pay Rate: $1.70 to $4.00+ per audio/video minute depending on complexity and your accuracy rating. Effective hourly rate for experienced translators typically ranges $20–30/hr.
+
+Requirements:
+- Fluency in French AND English (read, write, speak)
+- Strong written French (grammar, spelling, punctuation)
+- Ability to produce natural-sounding, well-timed subtitles
+- No degree required — self-assessed skill test only
+- Canada accepted (excluding some provinces — check eligibility at application)
+
+Note: Rev currently has a high application volume and may show a waitlist. Apply immediately — spots open regularly. There is NO commitment to minimum hours.
+
+Payment: Weekly via PayPal.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">Your bilingual French/English fluency is the only real requirement here. Rev's subtitle translation role is the highest-paying entry-level remote language job in this scan at $20–30/hr effective once you have a few hundred minutes rated. No degree, no certification, no experience needed — just pass a short translation sample. You can apply today and potentially be earning within a week. Perfect alignment with your language skills.</div>
+          <div class="skrow">
+            <span class="sk">French Translation</span>
+            <span class="sk">English Fluency</span>
+            <span class="sk">Subtitling</span>
+            <span class="sk">Timing/SRT</span>
+            <span class="sk">Attention to Detail</span>
+          </div>
+          <a class="abtn g" href="https://www.rev.com/freelancers/subtitles" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 2: Concentrix Bilingual CSR (TOP) -->
+      <div class="jcard top">
+        <div class="jleft">
+          <div class="jr g">2</div>
+          <span class="jb bp">~$19-22/hr</span>
+          <span class="jb bpl">concentrix.com</span>
+          <span class="jb bt">Top Pick</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">Customer Service Representative — Bilingual French/English Remote</div>
+          <div class="jco">Concentrix</div>
+          <div class="jmeta">
+            <span class="jm">Permanent Full-time</span>
+            <span class="jm">Remote — Canada</span>
+            <span class="jm">Entry Level</span>
+            <span class="jm">Benefits Included</span>
+          </div>
+          <div class="jdesc">Concentrix is a major global contact centre firm with a permanent, fully remote bilingual CSR role open in Canada. Handle inbound calls, chats, and emails in both French and English. High school diploma/GED accepted — no university degree required. Multiple openings across Canada including Quebec.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">Concentrix — Customer Service Representative (Bilingual: French/English) Remote Canada
+
+Role Overview:
+Provide exceptional customer service to French and English-speaking clients via phone, email, and live chat. You represent a major client brand and resolve inquiries, troubleshoot issues, and ensure customer satisfaction.
+
+Key Responsibilities:
+- Answer inbound customer inquiries in both French and English
+- Resolve issues across multiple communication channels (phone, chat, email)
+- Maintain accurate records in customer management systems
+- Meet quality and performance KPIs
+
+Requirements:
+- Fluency in spoken and written French AND English
+- High school diploma or GED (NO university degree required)
+- Minimum 6 months customer service or sales experience (some roles waive this)
+- Quiet, distraction-free home workspace
+- Reliable internet connection
+- Must be legally authorized to work in Canada
+
+Compensation:
+- Approximately $19–22/hr CAD depending on specific client program
+- Equipment may be provided
+- Benefits package included for permanent positions
+
+Why apply: Concentrix hires in volume and moves quickly from application to offer. Bilingual French/English candidates in Canada are high-priority for their Quebec-serving client accounts.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">Concentrix specifically recruits bilingual French/English speakers in Canada — you are their primary target candidate for Quebec-serving client programs. The role requires only a high school diploma (not a university degree), pays $19–22/hr, is 100% remote, and is permanent full-time, meaning stable reliable income starting quickly. Multiple open positions means your application stands a strong chance of moving to interview within days.</div>
+          <div class="skrow">
+            <span class="sk">French Fluency</span>
+            <span class="sk">English Fluency</span>
+            <span class="sk">Customer Service</span>
+            <span class="sk">Live Chat</span>
+            <span class="sk">Phone Support</span>
+            <span class="sk">CRM Systems</span>
+          </div>
+          <a class="abtn g" href="https://jobs.concentrix.com/canada/job/phn-phn-16188110/" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 3: Welocalize AI Data Annotator (TOP) -->
+      <div class="jcard top">
+        <div class="jleft">
+          <div class="jr g">3</div>
+          <span class="jb bp">~$18-20/hr</span>
+          <span class="jb bpl">Welocalize</span>
+          <span class="jb bt">Top Pick</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">AI Data Annotator — French Canada</div>
+          <div class="jco">Welocalize / Welo Global</div>
+          <div class="jmeta">
+            <span class="jm">Freelance Contract</span>
+            <span class="jm">Remote — Canada</span>
+            <span class="jm">Entry Level</span>
+            <span class="jm">15-20 hrs/wk min</span>
+          </div>
+          <div class="jdesc">Welocalize (Welo Global) is hiring French-Canadian bilingual AI data annotators for a 2-month contract with extension potential. Rate and annotate AI-generated content in French and English. No degree required — bilingual fluency is the primary qualification. Freelance part-time with flexible hours.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">Welocalize / Welo Global — AI Data Annotator (French Canada)
+
+Position Type: Temporary part-time freelance contract (2 months, extendable)
+Hours: Minimum 15–20 hours per week (flexible scheduling)
+Location: 100% remote, must reside in Canada
+
+What You Will Do:
+- Accurately perform rating and annotation tasks on AI-generated text and other data types per project guidelines
+- Evaluate the quality, accuracy, and naturalness of AI outputs in French-Canadian and English
+- Maintain high attention to detail and meet project deadlines
+- Communicate in both French-Canadian and English with project leads
+
+Requirements:
+- Fluency in French-Canadian (native or near-native preferred) AND English
+- Detail-oriented with strong reading comprehension in both languages
+- Ability to follow detailed annotation guidelines consistently
+- Reliable internet and computer setup
+- No degree required — fluency and attention to detail are the primary qualifications
+
+Compensation:
+- Approximately $18–20/hr CAD based on comparable Welo Global positions
+- Paid freelance — invoiced per project or hours completed
+
+Company Note: Welocalize is a leading AI training data and localization firm. Their French Canada annotation pipeline supports major LLM development projects. Extension beyond the initial 2-month contract is common for high performers.
+
+Apply via Lever.co — direct application link available.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">This role is purpose-built for bilingual French-Canadian speakers. Your French-Canadian (Quebec) background is the key qualification — Welocalize explicitly targets this demographic. No degree, no specialized technical knowledge required. The work involves reading, evaluating, and annotating AI outputs in French and English — directly in your wheelhouse. Freelance means you can start immediately once onboarded. Strong potential for contract extension.</div>
+          <div class="skrow">
+            <span class="sk">French-Canadian</span>
+            <span class="sk">Bilingual FR/EN</span>
+            <span class="sk">AI Annotation</span>
+            <span class="sk">Data Labeling</span>
+            <span class="sk">Reading Comprehension</span>
+            <span class="sk">Detail-Oriented</span>
+          </div>
+          <a class="abtn g" href="https://jobs.lever.co/welocalize/a4eea322-dd9f-49ef-8b5b-df7620786b91/apply" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 4: Arise Bilingual Roadside CSR -->
+      <div class="jcard">
+        <div class="jleft">
+          <div class="jr">4</div>
+          <span class="jb bp">$19.50/hr</span>
+          <span class="jb bpl">arise.com</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">Bilingual French/English Remote CSR — Roadside Assistance</div>
+          <div class="jco">Arise Work From Home</div>
+          <div class="jmeta">
+            <span class="jm">Contract / Flexible</span>
+            <span class="jm">Remote — Canada</span>
+            <span class="jm">Entry Level</span>
+            <span class="jm">24/7 Availability</span>
+          </div>
+          <div class="jdesc">Arise is a remote work platform connecting bilingual agents with client programs. Their French/English roadside assistance program pays $19.50 CAD/hr with fully flexible scheduling. You work as an independent service partner (no degree required) handling inbound calls for a roadside assistance brand.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">Arise Work From Home — Bilingual (English/French) Remote CSR for Roadside Assistance
+
+Overview:
+Arise connects independent contractors with remote customer service opportunities. The French/English roadside assistance program is available to bilingual Canadian agents who set up as a service partner.
+
+Key Details:
+- Handle inbound calls in French and English for a major roadside assistance client
+- 100% work from home — flexible scheduling 24 hours a day including weekends
+- $19.50 CAD/hr potential revenue rate
+- No degree requirement — bilingual fluency is the key qualification
+
+Requirements:
+- Fluency in French AND English (spoken, primary communication channel is voice)
+- Quiet home workspace, reliable phone/computer, and internet
+- Must register as a service partner with Arise (simple Canadian business setup may be needed)
+- No prior experience required — paid training available
+
+Pay Note: Arise pays to the independent service partner. Note that a Platform Usage Fee is deducted from gross earnings — effective take-home is typically around $17–19/hr net after platform fees.
+
+Schedule: You choose when to work — 24/7 availability of slots. Great for building around other commitments.
+
+Note: This is a voice-based role — inbound calls in both languages. Not text-only.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">Arise's platform requires zero degree or certification — just bilingual French/English skills and a home workspace. The $19.50/hr rate is above your $15 target. The fully flexible scheduling means you can ramp up quickly and earn from day one of onboarding. Your bilingual French/English profile puts you in the highest-demand tier for Canadian client programs.</div>
+          <div class="skrow">
+            <span class="sk">French Bilingual</span>
+            <span class="sk">Phone Support</span>
+            <span class="sk">Customer Service</span>
+            <span class="sk">Independent Work</span>
+          </div>
+          <a class="abtn" href="https://www.ariseworkfromhome.com/program/french-bilingual-roadside-customer-support-in-canada-remote/" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 5: ABL Employment French Bilingual CSR -->
+      <div class="jcard">
+        <div class="jleft">
+          <div class="jr">5</div>
+          <span class="jb bp">$18-19.25/hr</span>
+          <span class="jb bpl">ablemployment</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">Remote French Bilingual Customer Service Representative</div>
+          <div class="jco">ABL Employment</div>
+          <div class="jmeta">
+            <span class="jm">Full-time</span>
+            <span class="jm">Remote — Canada</span>
+            <span class="jm">Entry Level</span>
+            <span class="jm">Benefits + Bonuses</span>
+          </div>
+          <div class="jdesc">ABL Employment is placing bilingual French/English CSRs for immediate remote positions. $18/hr during training, rising to $19.25/hr after training. Full-time with health benefits, bonuses, and flexible schedule options. No degree required — they recruit based on language fluency and communication skills.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">ABL Employment — Remote French Bilingual Customer Service Representative
+
+ABL Employment is a staffing agency placing bilingual candidates in remote customer service roles for their client companies. This is a full-time, work-from-home placement.
+
+Compensation:
+- $18.00/hr during training period
+- $19.25/hr after successful training completion
+- Bonus and incentive programs
+- Health benefits included
+
+Responsibilities:
+- Handle inbound customer service inquiries in both French and English
+- Multi-channel support (phone, email, and potentially chat)
+- Resolve customer concerns, process requests, and escalate as needed
+- Maintain accurate records in client CRM systems
+
+Requirements:
+- Fluency in French AND English (written and verbal)
+- Strong communication skills in both languages
+- Basic computer literacy
+- Reliable home internet and workspace
+- No specific degree requirement stated — candidates are assessed on communication skills
+
+Schedule: Full-time, flexible schedule options available.
+
+Note: ABL Employment places you with their client — this is a staffing agency placement, meaning you are employed by the client company via ABL. Start date is typically fast (within 2–4 weeks of application).</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">ABL Employment specifically recruits bilingual French/English reps for remote positions with fast placement timelines. The structured pay progression ($18 → $19.25/hr) gives you immediate income growth. Benefits are included. No degree barrier. This is a direct match with your profile — language skills are the primary hiring criterion.</div>
+          <div class="skrow">
+            <span class="sk">French Bilingual</span>
+            <span class="sk">Customer Service</span>
+            <span class="sk">Phone/Email</span>
+            <span class="sk">CRM Systems</span>
+          </div>
+          <a class="abtn" href="https://www.ablemployment.com/job/remote-french-bilingual-customer-service-rep/" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 6: Quince Retention Specialist -->
+      <div class="jcard">
+        <div class="jleft">
+          <div class="jr">6</div>
+          <span class="jb bp">~$17-20/hr</span>
+          <span class="jb bpl">canadajobs</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">Customer Experience / Retention Specialist — French Bilingual (Remote Canada)</div>
+          <div class="jco">Quince</div>
+          <div class="jmeta">
+            <span class="jm">Full-time</span>
+            <span class="jm">Remote — Canada</span>
+            <span class="jm">Entry Level</span>
+          </div>
+          <div class="jdesc">Quince has an open retention specialist role specifically for French-bilingual Canadians. Use your bilingual communication skills to engage with customers and retain their subscriptions/accounts. No degree listed. Remote. This is a growth-oriented role with direct use of both French and English daily.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">Quince — Customer Experience Specialist / Retention Specialist (French Bilingual, Canada) — Remote
+
+About the Role:
+As a Retention Specialist you proactively engage with French and English-speaking customers who are considering cancelling or downgrading their accounts. Your goal is to understand their concerns, offer solutions, and retain their business.
+
+Key Responsibilities:
+- Contact customers via phone and/or chat in French and English
+- Listen to customer concerns and offer tailored solutions
+- Track retention outcomes and report on performance
+- Collaborate with customer success team
+
+Requirements:
+- Bilingual French AND English (verbal and written)
+- Strong interpersonal and persuasion skills
+- Comfort with CRM tools and basic computer skills
+- No university degree required
+- Remote-ready home setup
+
+Compensation:
+- Estimated $17–20/hr CAD based on market rate for bilingual retention roles in Canada
+- Performance incentives may be included
+
+This role sits at the intersection of customer service and sales — a good stepping stone with direct use of both languages.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">Quince specifically listed this role for French-bilingual Canadians — you are the exact target candidate. Retention specialist roles are well-suited to people with strong communication and persuasion skills in both languages. No degree required. The work is entirely remote and uses your bilingual skills every hour of the day. Good income with room for performance bonuses.</div>
+          <div class="skrow">
+            <span class="sk">French Bilingual</span>
+            <span class="sk">Retention</span>
+            <span class="sk">Persuasion</span>
+            <span class="sk">Customer Experience</span>
+            <span class="sk">CRM</span>
+          </div>
+          <a class="abtn" href="https://www.canadajobs.works/job/quince-customer-experience-specialist-retention-specialist-french-bilingual-canada" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 7: Voices.com Voice Over -->
+      <div class="jcard">
+        <div class="jleft">
+          <div class="jr">7</div>
+          <span class="jb bp">Varies/Project</span>
+          <span class="jb bpl">voices.com</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">Voice Over Artist — French Canadian / Bilingual</div>
+          <div class="jco">Voices.com (Marketplace)</div>
+          <div class="jmeta">
+            <span class="jm">Freelance</span>
+            <span class="jm">Remote — Canada</span>
+            <span class="jm">Entry Level OK</span>
+            <span class="jm">Build Your Own Rate</span>
+          </div>
+          <div class="jdesc">Voices.com is the leading North American voice-over marketplace. Create a free talent profile, audition for FR/EN casting calls, and set your own rates. Quebec French voice actors are in particularly high demand for e-learning, IVR, ads, and narration. No degree — just your voice and a basic home recording setup.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">Voices.com — Voice Over Talent Marketplace (French Canadian / Bilingual)
+
+Platform Overview:
+Voices.com connects clients (brands, e-learning companies, IVR developers, ad agencies) with voice actors. You create a profile, upload voice demos, and audition for or receive invitations to jobs.
+
+Types of Work Available:
+- E-learning narration (FR and/or EN)
+- IVR / telephone prompt recordings
+- Commercial / advertising voice over
+- Corporate narration and explainer videos
+- Audiobook narration (French and English)
+- Bilingual projects requiring both FR and EN voice
+
+Pay Rates:
+- Entry-level talent: Typically $100–500 CAD per short project
+- Experienced talent: $500–5,000+ per project
+- Rates are self-set — you bid on jobs or accept invites
+- GVAA Rate Guide is the industry standard for setting fair rates
+
+Getting Started:
+1. Create a free Voices.com talent profile
+2. Record a short demo in French and/or English (basic USB mic is sufficient to start)
+3. Audition for open castings
+4. Build reviews and reputation over time
+
+Note: Income on this platform takes time to build. Include this alongside faster-paying positions while building your profile. Quebec French (Canadian) is specifically in demand — a major differentiator.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">Quebec French (Canadian) voice talent is among the most in-demand on Voices.com — clients specifically look for authentic Quebec French accents for Canadian market projects. Your bilingual capability doubles the casting opportunities you can audition for. While this takes time to build, the per-project income potential is high. No degree, no certification — just your voice. A low-risk way to build a parallel income stream.</div>
+          <div class="skrow">
+            <span class="sk">French-Canadian Voice</span>
+            <span class="sk">English Narration</span>
+            <span class="sk">E-learning</span>
+            <span class="sk">IVR Recording</span>
+            <span class="sk">Home Recording</span>
+          </div>
+          <a class="abtn" href="https://www.voices.com/jobs" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 8: Welocalize French Canada Talent Hub -->
+      <div class="jcard">
+        <div class="jleft">
+          <div class="jr">8</div>
+          <span class="jb bp">Varies</span>
+          <span class="jb bpl">Welocalize</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">French Canada Talent Hub — AI &amp; Localization Projects</div>
+          <div class="jco">Welocalize</div>
+          <div class="jmeta">
+            <span class="jm">Freelance Pipeline</span>
+            <span class="jm">Remote — Canada</span>
+            <span class="jm">Multiple Project Types</span>
+          </div>
+          <div class="jdesc">Welocalize's French Canada Talent Hub is a standing talent pool for bilingual French-Canadian freelancers. Registering opens the door to AI annotation, localization QA, translation review, and content evaluation projects. Multiple project types means consistent availability of work beyond single-contract roles.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">Welocalize — French Canada Talent Hub (Ongoing Pipeline)
+
+What This Is:
+The French Canada Talent Hub is Welocalize's standing talent pool for French-Canadian bilingual freelancers. By joining, you are registered for multiple project types across AI training, localization, and content evaluation — not just a single contract.
+
+Project Types Available Through the Hub:
+- AI data annotation (rating, labeling, evaluation of AI outputs in French/English)
+- Localization QA (checking French translations for Canadian market accuracy)
+- Content evaluation (reviewing text, audio, image content for quality/safety)
+- Translation review (post-edit machine translation from EN to FR or FR to EN)
+- Transcription and captioning projects (as available)
+
+Requirements:
+- Native or near-native French-Canadian (Quebec) language skills
+- Proficiency in English
+- Attention to detail and ability to follow project-specific guidelines
+- Computer and reliable internet
+- No degree required
+
+Pay:
+Varies by project type, typically $15–25/hr CAD equivalent for language tasks. AI annotation rates tend toward the higher end.
+
+Joining the hub does not guarantee immediate work — it registers you in their system for matching to projects as they open. High-demand language pairs (French Canada/English) are matched quickly.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">Registering here is a 10-minute investment that opens access to multiple ongoing project streams. French-Canadian bilingual speakers are specifically recruited for this hub. Combined with the direct AI Annotator application (Card #3), this gives you both an immediate opportunity and a long-term pipeline for continued freelance work at Welocalize. No degree, no barrier to entry.</div>
+          <div class="skrow">
+            <span class="sk">French-Canadian</span>
+            <span class="sk">Bilingual FR/EN</span>
+            <span class="sk">Localization</span>
+            <span class="sk">AI Evaluation</span>
+            <span class="sk">Translation Review</span>
+          </div>
+          <a class="abtn" href="https://jobs.lever.co/welocalize/322e610e-9097-4a6f-bde0-2caed21b1be9" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 9: HappyScribe French Subtitling -->
+      <div class="jcard">
+        <div class="jleft">
+          <div class="jr">9</div>
+          <span class="jb bp">Flexible</span>
+          <span class="jb bpl">happyscribe</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">French Subtitling &amp; Transcription Freelancer</div>
+          <div class="jco">HappyScribe</div>
+          <div class="jmeta">
+            <span class="jm">Freelance</span>
+            <span class="jm">Remote — Global</span>
+            <span class="jm">Entry Level</span>
+            <span class="jm">Self-paced</span>
+          </div>
+          <div class="jdesc">HappyScribe is a transcription and subtitling platform that hires freelance French transcribers and subtitlers globally. 100% remote, choose your tasks. Typical freelancers earn ~$450 EUR/month part-time; top contributors earn $2,000–3,000 EUR/month. French transcription and subtitling is in steady demand.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">HappyScribe — Freelance French Transcription &amp; Subtitling
+
+Platform Overview:
+HappyScribe provides automated transcription and subtitling with human quality reviewers. Freelancers review, correct, and enhance AI-generated transcripts in French (and optionally English).
+
+Types of Work:
+- French transcription: Reviewing and correcting auto-generated French audio transcripts
+- French subtitling: Creating or correcting timed subtitle files for French video content
+- Both can be done in French-Canadian or standard French
+
+Pay Structure:
+- Pay is per audio/video minute of content processed
+- Part-time freelancers average approximately $450 EUR/month
+- Active full-time contributors can earn $2,000–3,000 EUR/month
+- Payments made regularly; platform has global payout options
+
+How to Start:
+1. Apply at happyscribe.com/subtitling-jobs or transcription jobs page
+2. Complete a short quality assessment
+3. Start claiming tasks from the task pool
+
+Requirements:
+- Strong French language skills (Quebec French is specifically valued for Canadian content)
+- English helpful but not required for French-only tasks
+- No degree, no prior experience required
+- Basic computer and reliable internet
+
+Note: This platform tends to have fluctuating task availability depending on demand. Best as a supplementary income alongside higher-paying roles.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">HappyScribe provides a low-barrier entry into paid transcription and subtitling — no experience or degree needed. Your French-Canadian language skills are directly applicable. The task-based model means you can work when you want, ramping up as you get faster. Best used alongside a primary role like Concentrix or Arise — adds a flexible supplementary income stream using your language skills.</div>
+          <div class="skrow">
+            <span class="sk">French Transcription</span>
+            <span class="sk">Subtitling</span>
+            <span class="sk">Attention to Detail</span>
+            <span class="sk">French-Canadian</span>
+          </div>
+          <a class="abtn" href="https://www.happyscribe.com/subtitling-jobs" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+      <!-- CARD 10: GoTranscript French Canadian -->
+      <div class="jcard">
+        <div class="jleft">
+          <div class="jr">10</div>
+          <span class="jb bp">$10-15/hr</span>
+          <span class="jb bpl">gotranscript</span>
+        </div>
+        <div class="jright">
+          <div class="jtitle">French Canadian Transcription Freelancer</div>
+          <div class="jco">GoTranscript</div>
+          <div class="jmeta">
+            <span class="jm">Freelance</span>
+            <span class="jm">Remote — Global</span>
+            <span class="jm">Beginner Friendly</span>
+            <span class="jm">Weekly Pay</span>
+          </div>
+          <div class="jdesc">GoTranscript specifically recruits French-Canadian transcribers. Pay is $0.50–$1.20/audio minute ($10–15/hr effective for beginners). Weekly PayPal payments. No experience required — just pass their short French transcription test. Currently short on transcribers with major projects starting. Below $15/hr threshold — ranked last.</div>
+          <button class="dtog" onclick="dtog(this)">▼ Show Full Description</button>
+          <div class="dfull">GoTranscript — French Canadian Transcription Freelancer
+
+Overview:
+GoTranscript is a transcription company that specifically recruits French-Canadian transcribers for its growing pool of French-language audio content. Currently short on transcribers — hiring actively.
+
+Pay Rate:
+- $0.50–$1.20 USD per audio minute
+- Effective hourly rate for beginners: approximately $10–15/hr (improves with speed and accuracy)
+- Payments every Friday via PayPal, Payoneer, or USDC
+
+How to Apply:
+1. Visit gotranscript.com/french-canadian-transcription-job
+2. Review the GoTranscript Style Guidelines (available on site)
+3. Pass a short transcription quality test (French audio sample)
+4. Start working from the available task queue
+
+Requirements:
+- Strong French-Canadian listening and writing skills
+- Good typing speed (improves with practice)
+- Quiet environment for audio playback
+- No degree or prior experience required — beginner friendly
+
+Project Notes:
+Major projects starting in mid-2026. GoTranscript states they are "currently short on transcribers and editors" — applications are being processed quickly.
+
+Note on Pay: At $10–15/hr effective for beginners, this is below Malaka's preferred $15+ target. Included because it starts immediately and can build toward higher tiers as accuracy rating improves. Pay rises with performance.</div>
+          <button class="wtog" onclick="wtog(this)">▶ Why This Fits You</button>
+          <div class="wbox">GoTranscript is beginner-friendly and actively recruiting French-Canadian transcribers right now. While the effective rate starts below your $15/hr preference, it is one of the fastest platforms to get earning on — often within a few days of passing the test. Weekly PayPal payments mean fast access to earnings. Use this to build your transcription resume while pursuing higher-paid roles simultaneously.</div>
+          <div class="skrow">
+            <span class="sk">French-Canadian</span>
+            <span class="sk">Transcription</span>
+            <span class="sk">Typing</span>
+            <span class="sk">Audio Comprehension</span>
+          </div>
+          <a class="abtn" href="https://gotranscript.com/french-canadian-transcription-job" target="_blank">Apply Now →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <section class="sec" id="filtered">
+    <div class="stitle"><span class="n">2</span> Filtered Out</div>
+    <p class="sdesc">Found but rejected. Reason shown for each.</p>
+    <div class="flist">
+      <div class="fi"><strong>DataAnnotation — Bilingual AI Trainer (dataannotation.tech)</strong> — FILTERED: Official listing explicitly requires "bachelor's degree (completed or in progress)" — hard filter on degree requirement. Pay was $20+/hr and otherwise a strong fit, but fails the no-degree rule.</div>
+      <div class="fi"><strong>Randstad — Bilingual Travel Agent TICO/OPC Remote (indeed.ca)</strong> — FILTERED: Requires TICO (Travel Industry Council of Ontario) or OPC (Office de la protection du consommateur) certification — specialist certification hard filter. Not entry level.</div>
+      <div class="fi"><strong>Lactalis Canada — Bilingual Payroll Analyst (indeed.ca)</strong> — FILTERED: Payroll analyst role requires accounting/payroll background and likely professional certification (PCP/PLP). Not entry level. Specialized financial knowledge required.</div>
+      <div class="fi"><strong>1VALET — Field Technician Support (Ottawa/Toronto)</strong> — FILTERED: Field technician role is on-site physical work, not remote. Hard filter: construction/field work rejected.</div>
+      <div class="fi"><strong>1VALET — Systems Analyst Technical Support (Toronto)</strong> — FILTERED: Technical systems analyst role requires IT/technical background. Not bilingual language work, not entry level without technical credentials.</div>
+      <div class="fi"><strong>Central-1 — Bilingual Fraud Prevention Analyst (himalayas.app)</strong> — FILTERED: Fraud analyst role requires specialized financial/banking background and degree in Finance or related field. Specialist role — fails both no-degree and no-specialist-certification filters.</div>
+    </div>
+  </section>
 
 </div>
-</section>
-
-<div class="div"></div>
-
-<!-- ALL JOBS -->
-<section class="sec" id="jobs">
-<div class="stitle"><span class="n">1</span> All Verified Jobs</div>
-<p class="sdesc">Click any job title to expand full details. Use the 3 buttons at the bottom of each card to track your status. <button class="reset-btn" onclick="resetAll()">Reset all statuses</button></p>
-<div class="jlist" id="jlist">
-
-<!-- JOB 1 -->
-<div class="jcard top" data-id="j1" data-search="alignerr voice actor french speakers ai training narration recording">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr g">1</div>
-<span class="jb bp">$170–$200/hr</span>
-<span class="jb bpl">Alignerr</span>
-<span class="jb bt">Top Pick</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">Voice Actor — French Speakers (AI Training)</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j1','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j1','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j1','no')">Not Interested</button>
-</div>
-<div class="jco">Alignerr</div>
-<div class="jmeta"><span class="jm">Hourly Contract</span><span class="jm">Remote — Canada</span><span class="jm">Flexible</span><span class="jm">No degree</span></div>
-<div class="jdesc">Record high-quality French voice samples from provided scripts and prompts. Evaluate AI-generated voice outputs for naturalness, pronunciation, and expressiveness. Provide feedback to improve AI speech quality. Work asynchronously on your own schedule. Native or near-native French required. Quebec regional French is welcomed. High-quality microphone and quiet recording environment required — you have this. No prior AI or tech experience needed. Highest pay in this report at $170–$200 USD/hr.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">Perfect match. Voice acting in French, fully remote, no degree. You own the Fifine K688 mic + Maono PS22Lite interface — the exact professional setup they need. Your native Quebec French is a regional variation they actively want. Pay tops every other job in this report. Apply first.</div>
-<div class="skrow"><span class="sk">Voice Acting</span><span class="sk">French</span><span class="sk">AI Training</span><span class="sk">Narration</span></div>
-<div class="actions">
-<a class="abtn g" href="https://www.alignerr.com/jobs/3bc4f9b3-6144-44cf-97ab-4d41206e3680" target="_blank">Apply on Alignerr →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j1','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j1','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j1','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 2 -->
-<div class="jcard top" data-id="j2" data-search="alignerr ai voice trainer english contract microphone">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr g">2</div>
-<span class="jb bp">$30–$200/hr</span>
-<span class="jb bpl">Alignerr</span>
-<span class="jb bt">Top Pick</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">AI Voice Trainer — English (Contract)</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j2','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j2','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j2','no')">Not Interested</button>
-</div>
-<div class="jco">Alignerr</div>
-<div class="jmeta"><span class="jm">Hourly Contract</span><span class="jm">Remote</span><span class="jm">Flexible</span><span class="jm">No degree</span></div>
-<div class="jdesc">Record English voice samples and evaluate AI voice outputs. Your bilingual ability means you can do both this AND the French role. Asynchronous, your own schedule. Quality microphone and quiet recording space required. No tech background needed. Pay range varies — top performers reach the higher end.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">Stack this with the French Voice role above — same company, two contracts. Your bilingual ability is a direct advantage here. Same professional home setup works for both.</div>
-<div class="skrow"><span class="sk">Voice Acting</span><span class="sk">English</span><span class="sk">AI Training</span></div>
-<div class="actions">
-<a class="abtn g" href="https://www.alignerr.com/jobs/acc2919d-4649-43cb-beb7-4cc70d1d814a" target="_blank">Apply on Alignerr →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j2','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j2','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j2','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 3 -->
-<div class="jcard top" data-id="j3" data-search="welo data welocalize french canadian talent network annotation ai">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr g">3</div>
-<span class="jb bp">Project pay</span>
-<span class="jb bpl">Welo Data</span>
-<span class="jb bt">Top Pick</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">French Canadian Talent Hub — Welo Data</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j3','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j3','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j3','no')">Not Interested</button>
-</div>
-<div class="jco">Welo Data (formerly Welocalize Talent)</div>
-<div class="jmeta"><span class="jm">Talent Network</span><span class="jm">Remote — Canada</span><span class="jm">Project-based</span><span class="jm">No degree</span></div>
-<div class="jdesc">Join the Welo Data talent community. Get first access to flexible, remote AI projects in annotation, evaluation, and prompt creation for Canadian French. Native or near-native French required, English proficiency, comfortable with digital tools. Short application form takes a few minutes.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">This is the application gateway to many small Welo Data projects. Sign up once, get matched to multiple paid projects as they appear. No degree required. Your Quebec French is a direct match.</div>
-<div class="skrow"><span class="sk">Canadian French</span><span class="sk">AI Annotation</span><span class="sk">Linguistic</span></div>
-<div class="actions">
-<a class="abtn g" href="https://welocalize.com/welo-data/" target="_blank">Apply on Welo Data →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j3','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j3','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j3','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 4 -->
-<div class="jcard top" data-id="j4" data-search="outlier french language expert ai training rating $25 hr">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr g">4</div>
-<span class="jb bp">Up to $25/hr</span>
-<span class="jb bpl">Outlier</span>
-<span class="jb bt">Top Pick</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">French Language Expert — AI Training</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j4','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j4','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j4','no')">Not Interested</button>
-</div>
-<div class="jco">Outlier AI</div>
-<div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Your own schedule</span><span class="jm">Paid weekly</span></div>
-<div class="jdesc">Rate AI outputs in French. Provide expert human feedback to improve AI models. Outlier connects 700,000+ experts worldwide. Work when and where you want. Paid weekly based on work completed. Native fluency in French required. Strong command of grammar, syntax, and cultural nuances.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">Reliable platform with weekly payments. Up to $25/hr is solid for AI evaluation work. Your native French is exactly what they want. Apply once, get ongoing project access.</div>
-<div class="skrow"><span class="sk">French</span><span class="sk">AI Evaluation</span><span class="sk">Content Rating</span></div>
-<div class="actions">
-<a class="abtn g" href="https://outlier.ai/languages/fr-fr" target="_blank">Apply on Outlier →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j4','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j4','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j4','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 5 -->
-<div class="jcard" data-id="j5" data-search="outlier ai opportunities all open positions bilingual flexible">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr">5</div>
-<span class="jb bp">Varies</span>
-<span class="jb bpl">Outlier</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">Outlier — All Open Opportunities</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j5','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j5','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j5','no')">Not Interested</button>
-</div>
-<div class="jco">Outlier AI Expert Platform</div>
-<div class="jmeta"><span class="jm">Multiple roles</span><span class="jm">Remote</span><span class="jm">Self-paced</span></div>
-<div class="jdesc">Browse all current open Outlier positions in one place. Filter by language, skill, and project type. New projects added regularly. Sign in to see personalized matches.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">Use this to check for new Outlier opportunities daily. Bookmark and visit each morning. New French projects appear here first.</div>
-<div class="skrow"><span class="sk">Multiple Roles</span><span class="sk">AI Training</span></div>
-<div class="actions">
-<a class="abtn" href="https://app.outlier.ai/en/expert/opportunities" target="_blank">View Opportunities →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j5','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j5','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j5','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 6 -->
-<div class="jcard top" data-id="j6" data-search="dataannotation bilingual content editor french ai chatbot writing">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr g">6</div>
-<span class="jb bp">$25+/hr</span>
-<span class="jb bpl">DataAnnotation</span>
-<span class="jb bt">Top Pick</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">Bilingual Content Editor (French) — AI Trainer</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j6','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j6','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j6','no')">Not Interested</button>
-</div>
-<div class="jco">DataAnnotation.tech</div>
-<div class="jmeta"><span class="jm">$25+/hr</span><span class="jm">Remote</span><span class="jm">Full or part-time</span><span class="jm">Your schedule</span></div>
-<div class="jdesc">Give AI chatbots writing and editing tasks and evaluate their outputs. Choose which projects you want. Work on your own schedule. Starting at $25+ USD/hr with bonuses for high quality and volume work. Fluency in English and French required. Degree preferred but NOT required — entry level accepted.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">No degree required. Solid hourly rate. Apply once, get continuous task access. Your bilingual writing skills are a direct match. Can stack with Alignerr and Outlier without conflict.</div>
-<div class="skrow"><span class="sk">Bilingual FR/EN</span><span class="sk">Writing</span><span class="sk">AI Evaluation</span></div>
-<div class="actions">
-<a class="abtn g" href="https://www.dataannotation.tech/" target="_blank">Apply on DataAnnotation →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j6','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j6','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j6','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 7 -->
-<div class="jcard" data-id="j7" data-search="languageline opi over phone interpreter french english training">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr">7</div>
-<span class="jb bp">$16–$22/hr</span>
-<span class="jb bpl">LanguageLine</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">Over-the-Phone Interpreter — French/English</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j7','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j7','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j7','no')">Not Interested</button>
-</div>
-<div class="jco">LanguageLine Solutions</div>
-<div class="jmeta"><span class="jm">Hourly</span><span class="jm">Remote</span><span class="jm">Paid training</span><span class="jm">No degree</span></div>
-<div class="jdesc">Real-time phone interpretation for healthcare, legal, and financial services calls. LanguageLine provides paid training. No degree needed. Bilingual French/English mandatory. Quiet workspace and headset required.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">Paid training means they expect you to learn the role. Your bilingual French/English is the main qualification. Steady hourly work from home.</div>
-<div class="skrow"><span class="sk">Bilingual FR/EN</span><span class="sk">Interpreter</span><span class="sk">Phone</span></div>
-<div class="actions">
-<a class="abtn" href="https://www.languageline.com/careers" target="_blank">View LanguageLine Careers →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j7','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j7','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j7','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 8 -->
-<div class="jcard" data-id="j8" data-search="rev.com transcription captioning freelance french english audio">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr">8</div>
-<span class="jb bp">Per task</span>
-<span class="jb bpl">Rev.com</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">Freelance Transcriptionist & Captioner</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j8','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j8','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j8','no')">Not Interested</button>
-</div>
-<div class="jco">Rev.com</div>
-<div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Pick your work</span><span class="jm">No experience</span></div>
-<div class="jdesc">Transcribe audio and add captions to videos. Pick the jobs you want from a queue. Pay per minute of finished audio. Weekly payouts via PayPal. English transcription is the main work — bilingual ear helps with mixed-language content.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">No experience needed. Apply, pass a short test, start earning the same week. Your bilingual ear helps you handle French accents in English audio. Good supplemental income.</div>
-<div class="skrow"><span class="sk">Transcription</span><span class="sk">Captioning</span><span class="sk">Bilingual ear</span></div>
-<div class="actions">
-<a class="abtn" href="https://www.rev.com/freelancers" target="_blank">Apply on Rev.com →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j8','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j8','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j8','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 9 -->
-<div class="jcard" data-id="j9" data-search="gotranscript french transcription freelance remote $0.60 minute">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr">9</div>
-<span class="jb bp">$0.60–$1.10/min</span>
-<span class="jb bpl">GoTranscript</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">French Transcriptionist — Freelance</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j9','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j9','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j9','no')">Not Interested</button>
-</div>
-<div class="jco">GoTranscript</div>
-<div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Weekly pay</span><span class="jm">No experience</span></div>
-<div class="jdesc">Transcribe French audio to text. Pick jobs from a queue. Pay per audio minute — $0.60 to $1.10/minute depending on difficulty. Weekly payments via PayPal or Payoneer. Native French speakers earn the higher rates.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">Native French = top tier rates. Quick application process. Start earning the same week you're approved. Good stacking option with Rev.com.</div>
-<div class="skrow"><span class="sk">French Transcription</span><span class="sk">Native French</span></div>
-<div class="actions">
-<a class="abtn" href="https://gotranscript.com/transcription-jobs" target="_blank">Apply on GoTranscript →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j9','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j9','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j9','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 10 -->
-<div class="jcard" data-id="j10" data-search="appen french canadian remote freelance ai data evaluation">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr">10</div>
-<span class="jb bp">Project pay</span>
-<span class="jb bpl">Appen</span>
-<span class="jb bv">Link OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">Appen — French Canadian AI Projects</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j10','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j10','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j10','no')">Not Interested</button>
-</div>
-<div class="jco">Appen Global</div>
-<div class="jmeta"><span class="jm">Multiple roles</span><span class="jm">Remote</span><span class="jm">Project-based</span></div>
-<div class="jdesc">Major AI data company. French Canadian crowd workers do search relevance evaluation, ad rating, and AI training tasks. Apply once, get matched to projects as they open. Most tasks paid per completion.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">One of the biggest AI data platforms. Reliable payer. Native Quebec French is in demand. Apply now to be ready when projects open.</div>
-<div class="skrow"><span class="sk">AI Data</span><span class="sk">Search Evaluation</span><span class="sk">French CA</span></div>
-<div class="actions">
-<a class="abtn" href="https://www.appen.com/careers" target="_blank">Apply on Appen →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j10','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j10','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j10','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 11 -->
-<div class="jcard" data-id="j11" data-search="upwork voice over french canadian freelance projects job search">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr">11</div>
-<span class="jb bp">Project pay</span>
-<span class="jb bpl">Upwork</span>
-<span class="jb bv">Browser OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">Upwork — French Voice-Over Jobs (Live Search)</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j11','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j11','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j11','no')">Not Interested</button>
-</div>
-<div class="jco">Upwork Marketplace</div>
-<div class="jmeta"><span class="jm">Browse jobs</span><span class="jm">Logged in</span><span class="jm">53 connects available</span></div>
-<div class="jdesc">Live Upwork search showing all current French voice-over jobs sorted by most recent. You are already logged in to Upwork with 53 connects available. New jobs post every hour. Make sure Brave Shields are OFF for upwork.com.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">Most flexible job source. New voice projects post constantly. Your existing Upwork profile is 100% complete. Use the 53 connects strategically — only apply to high-pay jobs with under 5 proposals.</div>
-<div class="skrow"><span class="sk">Voice-Over</span><span class="sk">French</span><span class="sk">Freelance</span></div>
-<div class="actions">
-<a class="abtn" href="https://www.upwork.com/nx/search/jobs/?q=voice%20over%20french%20canadian&sort=recency" target="_blank">Open on Upwork →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j11','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j11','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j11','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-<!-- JOB 12 -->
-<div class="jcard" data-id="j12" data-search="upwork translation french content writer bilingual freelance">
-<div class="status-banner applied-tag">Applied</div>
-<div class="status-banner process-tag">In Process</div>
-<div class="status-banner no-tag">Not Interested</div>
-<div class="jleft">
-<div class="jr">12</div>
-<span class="jb bp">Project pay</span>
-<span class="jb bpl">Upwork</span>
-<span class="jb bv">Browser OK</span>
-</div>
-<div class="jright">
-<div class="jtitle" onclick="toggleCard(this)">Upwork — French Translation & Content Writing (Live Search)</div>
-<div class="collapsed-status">
-<span class="lbl">Status:</span>
-<button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j12','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j12','process')">In Process</button>
-<button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j12','no')">Not Interested</button>
-</div>
-<div class="jco">Upwork Marketplace</div>
-<div class="jmeta"><span class="jm">Browse jobs</span><span class="jm">Logged in</span><span class="jm">Multiple categories</span></div>
-<div class="jdesc">Live Upwork search showing all current French translation and bilingual content writing jobs, sorted by most recent. Quebec French expertise is your edge for Canadian market projects.</div>
-<button class="wtog" onclick="toggleWhy(this)">▶ Why This Fits You</button>
-<div class="wbox">Translation and content writing have steady demand on Upwork. Mention "Quebec French native" in proposals — many clients specifically need this dialect.</div>
-<div class="skrow"><span class="sk">Translation</span><span class="sk">Content Writing</span><span class="sk">Quebec French</span></div>
-<div class="actions">
-<a class="abtn" href="https://www.upwork.com/nx/search/jobs/?q=bilingual%20french%20english&sort=recency" target="_blank">Open on Upwork →</a>
-<div class="status-btns">
-<button class="sbtn applied-btn" onclick="setStatus('j12','applied')">Applied</button>
-<button class="sbtn process-btn" onclick="setStatus('j12','process')">In Process</button>
-<button class="sbtn no-btn" onclick="setStatus('j12','no')">Not Interested</button>
-</div>
-</div>
-</div>
-</div>
-
-</div>
-</section>
-
-<div class="div"></div>
-
-<!-- PLATFORMS QUICK ACCESS -->
-<section class="sec" id="platforms">
-<div class="stitle"><span class="n">2</span> Platform Quick Access</div>
-<p class="sdesc">Direct links to live job searches on each platform. All verified working. Click any to browse new postings.</p>
-<div class="platforms-quick">
-<a class="pq" href="https://www.alignerr.com/jobs" target="_blank">Alignerr<span class="sub">All Jobs</span></a>
-<a class="pq" href="https://app.outlier.ai/en/expert/opportunities" target="_blank">Outlier<span class="sub">Opportunities</span></a>
-<a class="pq" href="https://www.dataannotation.tech/" target="_blank">DataAnnotation<span class="sub">AI Trainer</span></a>
-<a class="pq" href="https://welocalize.com/welo-data/" target="_blank">Welo Data<span class="sub">Talent Network</span></a>
-<a class="pq" href="https://www.appen.com/careers" target="_blank">Appen<span class="sub">AI Data</span></a>
-<a class="pq" href="https://www.rev.com/freelancers" target="_blank">Rev.com<span class="sub">Transcription</span></a>
-<a class="pq" href="https://gotranscript.com/transcription-jobs" target="_blank">GoTranscript<span class="sub">French Audio</span></a>
-<a class="pq" href="https://www.languageline.com/careers" target="_blank">LanguageLine<span class="sub">Phone Interpreter</span></a>
-<a class="pq" href="https://www.upwork.com/nx/find-work/best-matches" target="_blank">Upwork<span class="sub">Best Matches</span></a>
-<a class="pq" href="https://www.voices.com/talent" target="_blank">Voices.com<span class="sub">Voice Jobs</span></a>
-<a class="pq" href="https://www.linkedin.com/jobs/search/?keywords=bilingual+french+english+remote+canada&sortBy=DD" target="_blank">LinkedIn<span class="sub">FR/EN Remote CA</span></a>
-<a class="pq" href="https://www.transperfect.com/about/careers" target="_blank">TransPerfect<span class="sub">Translation</span></a>
-</div>
-</section>
-
-<div class="div"></div>
-
-<!-- HISTORY -->
-<section class="sec" id="history">
-<div class="stitle"><span class="n">3</span> History — Past Reports</div>
-<p class="sdesc">Previous job scan reports. Click to open. Going forward, every scan will be archived here automatically.</p>
-<div class="note-info">
-Today is the first day with the new archive system. From now on, every automated scan (8 AM, 12:30 PM, 5 PM, 6:30 PM Montreal) will save a dated copy here that you can revisit any time. The newest report always shows at the top of this page.
-</div>
-<div class="history-list">
-
-<div class="hi">
-<div class="info">
-<div class="d">June 2, 2026 — Manual Rebuild (You are reading this)</div>
-<div class="s">12 verified jobs · No customer support · Status tracking added</div>
-</div>
-<span class="open" style="background:rgba(0,212,170,.15);color:var(--a3);border-color:rgba(0,212,170,.3)">CURRENT</span>
-</div>
-
-<div class="hi">
-<div class="info">
-<div class="d">June 2, 2026 — 8 AM Auto Scan</div>
-<div class="s">10 jobs found · Had 6 customer support (now removed)</div>
-</div>
-<a class="open" href="archive/2026-06-02-08am.html" target="_blank">Open</a>
-</div>
-
-<div class="hi">
-<div class="info">
-<div class="d">May 31, 2026 — Local Hand Report</div>
-<div class="s">32 jobs · LinkedIn + Upwork + ProtonMail (saved on your computer)</div>
-</div>
-<a class="open" href="https://most33dg.github.io/job-reports/archive/2026-05-31-local.html" target="_blank">Open</a>
-</div>
-
-</div>
-</section>
-
-</div><!-- /wrap -->
-
-<script>
-// CARD EXPAND/COLLAPSE
-function toggleCard(t){t.closest('.jcard').classList.toggle('exp');}
-function toggleWhy(b){b.nextElementSibling.classList.toggle('open');b.textContent=b.nextElementSibling.classList.contains('open')?'◀ Hide':'▶ Why This Fits You';}
-
-// STATUS BUTTONS WITH LOCALSTORAGE
-const STORAGE_KEY='malaka_job_status_v1';
-function loadStatuses(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){return{};}}
-function saveStatuses(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
-function applyStatusToCard(id,status){
-  const card=document.querySelector(`.jcard[data-id="${id}"]`);
-  if(!card)return;
-  card.classList.remove('status-applied','status-process','status-no');
-  card.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));
-  if(status==='applied'){card.classList.add('status-applied');card.querySelectorAll('.applied-btn').forEach(b=>b.classList.add('active'));}
-  if(status==='process'){card.classList.add('status-process');card.querySelectorAll('.process-btn').forEach(b=>b.classList.add('active'));}
-  if(status==='no'){card.classList.add('status-no');card.querySelectorAll('.no-btn').forEach(b=>b.classList.add('active'));}
-}
-function setStatus(id,status){
-  const all=loadStatuses();
-  if(all[id]===status){delete all[id];}else{all[id]=status;}
-  saveStatuses(all);
-  applyStatusToCard(id,all[id]||'');
-  updateCounters();
-}
-function updateCounters(){
-  const all=loadStatuses();
-  let a=0,p=0,n=0;
-  Object.values(all).forEach(v=>{if(v==='applied')a++;else if(v==='process')p++;else if(v==='no')n++;});
-  document.getElementById('cnt-applied').textContent=a;
-  document.getElementById('cnt-process').textContent=p;
-  document.getElementById('cnt-no').textContent=n;
-}
-function resetAll(){
-  if(confirm('Reset all application statuses? This cannot be undone.')){
-    localStorage.removeItem(STORAGE_KEY);
-    document.querySelectorAll('.jcard').forEach(c=>{c.classList.remove('status-applied','status-process','status-no');c.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));});
-    updateCounters();
-  }
-}
-// SEARCH FILTER
-function filterJobs(query){
-  const q=query.toLowerCase().trim();
-  document.querySelectorAll('.jcard').forEach(card=>{
-    const text=(card.dataset.search||'')+' '+card.innerText.toLowerCase();
-    const matches=q.length===0||text.includes(q);
-    card.classList.toggle('search-hidden',!matches);
-    if(matches&&q.length>0)card.classList.add('exp');
-    if(q.length===0)card.classList.remove('exp');
-  });
-}
-// INIT
-document.addEventListener('DOMContentLoaded',()=>{
-  const all=loadStatuses();
-  Object.entries(all).forEach(([id,s])=>applyStatusToCard(id,s));
-  updateCounters();
-});
-</script>
-</body>
-</html>
+<script>document.querySelectorAll('.jtitle').forEach(t=>{t.addEventListener('click',function(){this.closest('.jcard').classList.toggle('exp');});});function dtog(b){let f=b.nextElementSibling;let o=f.classList.toggle('open');b.textContent=o?'▲ Hide Description':'▼ Show Full Description';}function wtog(b){let f=b.nextElementSibling;let o=f.classList.toggle('open');b.textContent=o?'◀ Hide':'▶ Why This Fits You';}</script>
+</body></html>
