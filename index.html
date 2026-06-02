@@ -38,6 +38,12 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 .today h3{font-size:.8rem;font-weight:800;color:var(--a3);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
 .ti{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 .ti:last-child{border-bottom:none;padding-bottom:0}
+.ti[data-status="applied"]{background:rgba(0,212,170,.08);border-radius:6px;padding-left:8px;padding-right:8px;border-left:3px solid var(--a3)}
+.ti[data-status="process"]{background:rgba(234,179,8,.08);border-radius:6px;padding-left:8px;padding-right:8px;border-left:3px solid var(--yellow)}
+.ti[data-status="no"]{opacity:.5;background:rgba(255,107,107,.05);border-radius:6px;padding-left:8px;padding-right:8px;border-left:3px solid var(--red)}
+.ti .ti-status{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.ti .ti-status .lbl{font-size:.58rem;color:var(--mt);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-right:3px}
+.ti .ti-status .sbtn{font-size:.62rem;padding:3px 7px}
 .trank{background:var(--a3);color:#000;font-size:.72rem;font-weight:800;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
 .ti-info{flex:1;min-width:0}
 .ti h4{font-size:.85rem;font-weight:700;margin-bottom:3px}
@@ -146,9 +152,9 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <p class="sdesc">Top 3 to apply to right now. Highest paying, fastest start, verified links.</p>
 <div class="today">
 <h3>Apply to These First</h3>
-<div class="ti"><div class="trank">1</div><div class="ti-info"><h4>Alignerr — Voice Actor French Speakers <span class="pg">$170–$200/hr</span></h4><p>Top paying voice role. Record French samples from home. No degree. Your Fifine K688 + Maono setup is exactly what they need.</p><a class="ta" href="https://www.alignerr.com/jobs/3bc4f9b3-6144-44cf-97ab-4d41206e3680" target="_blank">Apply on Alignerr</a></div></div>
-<div class="ti"><div class="trank">2</div><div class="ti-info"><h4>Welo Data — French Canadian Talent Hub <span class="pg">Project-based</span></h4><p>Join Welo's talent network. Get matched to French Canadian AI annotation projects. Quick application form. No degree.</p><a class="ta" href="https://welocalize.com/welo-data/" target="_blank">Apply on Welo Data</a></div></div>
-<div class="ti"><div class="trank">3</div><div class="ti-info"><h4>Outlier AI — French Language Expert <span class="pg">Up to $25/hr</span></h4><p>Rate AI outputs in French. Work your own schedule. Paid weekly. Verified live opportunities page.</p><a class="ta" href="https://outlier.ai/languages/fr-fr" target="_blank">Apply on Outlier</a></div></div>
+<div class="ti" data-id="j1"><div class="trank">1</div><div class="ti-info"><h4>Alignerr — Voice Actor French Speakers <span class="pg">$170–$200/hr</span></h4><p>Top paying voice role. Record French samples from home. No degree. Your Fifine K688 + Maono setup is exactly what they need.</p><a class="ta" href="https://www.alignerr.com/jobs/3bc4f9b3-6144-44cf-97ab-4d41206e3680" target="_blank">Apply on Alignerr</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j1','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j1','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j1','no')">Not Interested</button></div></div></div>
+<div class="ti" data-id="j3"><div class="trank">2</div><div class="ti-info"><h4>Welo Data — French Canadian Talent Hub <span class="pg">Project-based</span></h4><p>Join Welo's talent network. Get matched to French Canadian AI annotation projects. Quick application form. No degree.</p><a class="ta" href="https://welocalize.com/welo-data/" target="_blank">Apply on Welo Data</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j3','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j3','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j3','no')">Not Interested</button></div></div></div>
+<div class="ti" data-id="j4"><div class="trank">3</div><div class="ti-info"><h4>Outlier AI — French Language Expert <span class="pg">Up to $25/hr</span></h4><p>Rate AI outputs in French. Work your own schedule. Paid weekly. Verified live opportunities page.</p><a class="ta" href="https://outlier.ai/languages/fr-fr" target="_blank">Apply on Outlier</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j4','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j4','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j4','no')">Not Interested</button></div></div></div>
 </div>
 </section>
 
@@ -517,12 +523,21 @@ function loadStatuses(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))
 function saveStatuses(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
 function applyStatusToCard(id,status){
   const card=document.querySelector('.jcard[data-id="'+id+'"]');
-  if(!card)return;
-  card.classList.remove('status-applied','status-process','status-no');
-  card.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));
-  if(status==='applied'){card.classList.add('status-applied');card.querySelectorAll('.applied-btn').forEach(b=>b.classList.add('active'));}
-  if(status==='process'){card.classList.add('status-process');card.querySelectorAll('.process-btn').forEach(b=>b.classList.add('active'));}
-  if(status==='no'){card.classList.add('status-no');card.querySelectorAll('.no-btn').forEach(b=>b.classList.add('active'));}
+  if(card){
+    card.classList.remove('status-applied','status-process','status-no');
+    card.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));
+    if(status==='applied'){card.classList.add('status-applied');card.querySelectorAll('.applied-btn').forEach(b=>b.classList.add('active'));}
+    if(status==='process'){card.classList.add('status-process');card.querySelectorAll('.process-btn').forEach(b=>b.classList.add('active'));}
+    if(status==='no'){card.classList.add('status-no');card.querySelectorAll('.no-btn').forEach(b=>b.classList.add('active'));}
+  }
+  const ti=document.querySelector('.ti[data-id="'+id+'"]');
+  if(ti){
+    if(status){ti.setAttribute('data-status',status);}else{ti.removeAttribute('data-status');}
+    ti.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));
+    if(status==='applied'){ti.querySelectorAll('.applied-btn').forEach(b=>b.classList.add('active'));}
+    if(status==='process'){ti.querySelectorAll('.process-btn').forEach(b=>b.classList.add('active'));}
+    if(status==='no'){ti.querySelectorAll('.no-btn').forEach(b=>b.classList.add('active'));}
+  }
 }
 function setStatus(id,status){
   const all=loadStatuses();
@@ -538,7 +553,7 @@ function updateCounters(){
   document.getElementById('cnt-process').textContent=p;
   document.getElementById('cnt-no').textContent=n;
 }
-function resetAll(){if(confirm('Reset all application statuses?')){localStorage.removeItem(STORAGE_KEY);document.querySelectorAll('.jcard').forEach(c=>{c.classList.remove('status-applied','status-process','status-no');c.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));});updateCounters();}}
+function resetAll(){if(confirm('Reset all application statuses?')){localStorage.removeItem(STORAGE_KEY);document.querySelectorAll('.jcard').forEach(c=>{c.classList.remove('status-applied','status-process','status-no');c.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));});document.querySelectorAll('.ti[data-id]').forEach(t=>{t.removeAttribute('data-status');t.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));});updateCounters();}}
 function filterJobs(query){
   const q=query.toLowerCase().trim();
   document.querySelectorAll('.jcard').forEach(card=>{
