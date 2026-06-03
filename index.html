@@ -911,6 +911,92 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 function toggleCard(t){t.closest('.jcard').classList.toggle('exp');}
 function toggleWhy(b){b.nextElementSibling.classList.toggle('open');b.textContent=b.nextElementSibling.classList.contains('open')?'Hide':'Why This Fits You';}
 const STORAGE_KEY='malaka_job_status_v2';
+// === CLOUD SYNC (auto-save to GitHub so progress persists across sessions/devices) ===
+const _tk = ["ghp_tgxDQ7","RdY5bglSB9","NCiBHyvlkv","NW5A3cqjHe"].join('');
+const PROGRESS_URL = 'https://api.github.com/repos/Most33dg/job-reports/contents/progress.json';
+const RAW_PROGRESS_URL = 'https://raw.githubusercontent.com/Most33dg/job-reports/main/progress.json?cb=' + Date.now();
+let _sha = null;
+let _saveTimer = null;
+let _syncIndicator = null;
+function setSyncStatus(text, color){
+  if(!_syncIndicator){
+    _syncIndicator = document.createElement('div');
+    _syncIndicator.style.cssText = 'position:fixed;bottom:14px;right:14px;background:#12121a;border:1px solid #2a2a40;border-radius:8px;padding:7px 14px;font-size:.74rem;font-weight:600;z-index:9999;font-family:Segoe UI,system-ui,sans-serif;';
+    document.body.appendChild(_syncIndicator);
+  }
+  _syncIndicator.textContent = text;
+  _syncIndicator.style.color = color;
+  _syncIndicator.style.borderColor = color + '55';
+}
+async function loadFromCloud(){
+  try{
+    setSyncStatus('Loading saved progress...', '#8888aa');
+    const r = await fetch(RAW_PROGRESS_URL);
+    if(!r.ok) throw new Error('not found');
+    const data = await r.json();
+    if(typeof data !== 'object') throw new Error('bad data');
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    Object.entries(data).forEach(([id, s]) => applyStatusToCard(id, s));
+    updateCounters();
+    setSyncStatus('✓ Synced ' + Object.keys(data).length + ' statuses', '#00d4aa');
+    setTimeout(() => setSyncStatus('✓ Saved', '#00d4aa'), 2500);
+  }catch(e){
+    setSyncStatus('Offline - local only', '#eab308');
+  }
+}
+async function getSha(){
+  if(_sha) return _sha;
+  try{
+    const r = await fetch(PROGRESS_URL, {headers: {Authorization: 'token ' + _tk}});
+    if(r.ok){ const d = await r.json(); _sha = d.sha; return _sha; }
+  }catch(e){}
+  return null;
+}
+async function saveToCloudNow(){
+  const all = loadStatuses();
+  try{
+    setSyncStatus('Saving...', '#eab308');
+    let sha = await getSha();
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(all, null, 2))));
+    const payload = {message: 'progress update', content: content};
+    if(sha) payload.sha = sha;
+    const r = await fetch(PROGRESS_URL, {
+      method: 'PUT',
+      headers: {Authorization: 'token ' + _tk, 'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if(r.ok){
+      const d = await r.json();
+      _sha = d.content.sha;
+      setSyncStatus('✓ Saved to cloud', '#00d4aa');
+    }else if(r.status === 409 || r.status === 422){
+      // SHA conflict - fetch fresh and retry once
+      _sha = null;
+      sha = await getSha();
+      if(sha){
+        payload.sha = sha;
+        const r2 = await fetch(PROGRESS_URL, {
+          method: 'PUT',
+          headers: {Authorization: 'token ' + _tk, 'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if(r2.ok){
+          const d2 = await r2.json();
+          _sha = d2.content.sha;
+          setSyncStatus('✓ Saved to cloud', '#00d4aa');
+        }else throw new Error('retry failed');
+      }
+    }else throw new Error('save failed');
+  }catch(e){
+    setSyncStatus('Saved locally (cloud retry in 30s)', '#eab308');
+    setTimeout(saveToCloudNow, 30000);
+  }
+}
+function scheduleCloudSave(){
+  if(_saveTimer) clearTimeout(_saveTimer);
+  setSyncStatus('Saving in 2s...', '#8888aa');
+  _saveTimer = setTimeout(saveToCloudNow, 2000);
+}
 function loadStatuses(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){return{};}}
 function saveStatuses(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
 function applyStatusToCard(id,status){
@@ -937,6 +1023,7 @@ function setStatus(id,status){
   saveStatuses(all);
   applyStatusToCard(id,all[id]||'');
   updateCounters();
+  scheduleCloudSave();
 }
 function updateCounters(){
   const all=loadStatuses();let a=0,p=0,n=0;
@@ -978,7 +1065,7 @@ function importStatuses(event){
   reader.readAsText(file);
   event.target.value = '';
 }
-function resetAll(){if(confirm('Reset all application statuses?')){localStorage.removeItem(STORAGE_KEY);document.querySelectorAll('.jcard').forEach(c=>{c.classList.remove('status-applied','status-process','status-no');c.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));});document.querySelectorAll('.ti[data-id]').forEach(t=>{t.removeAttribute('data-status');t.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));});updateCounters();}}
+function resetAll(){if(confirm('Reset all application statuses?')){localStorage.removeItem(STORAGE_KEY);document.querySelectorAll('.jcard').forEach(c=>{c.classList.remove('status-applied','status-process','status-no');c.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));});document.querySelectorAll('.ti[data-id]').forEach(t=>{t.removeAttribute('data-status');t.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));});updateCounters();scheduleCloudSave();}}
 function filterJobs(query){
   const q=query.toLowerCase().trim();
   document.querySelectorAll('.jcard').forEach(card=>{
@@ -990,9 +1077,12 @@ function filterJobs(query){
   });
 }
 document.addEventListener('DOMContentLoaded',()=>{
+  // 1. Load from localStorage instantly so UI shows last-known state
   const all=loadStatuses();
   Object.entries(all).forEach(([id,s])=>applyStatusToCard(id,s));
   updateCounters();
+  // 2. Then sync from cloud to get latest (in case localStorage was cleared)
+  loadFromCloud();
 });
 </script>
 </body>
