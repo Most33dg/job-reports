@@ -101,6 +101,11 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 .sbtn.process-btn.active{background:var(--yellow);color:#000;border-color:var(--yellow)}
 .sbtn.no-btn{border-color:rgba(255,107,107,.3)}
 .sbtn.no-btn.active{background:var(--red);color:#000;border-color:var(--red)}
+.sbtn.closed-btn{border-color:rgba(136,136,170,.4)}
+.sbtn.closed-btn.active{background:#8888aa;color:#000;border-color:#8888aa}
+.jcard.status-closed{border-color:rgba(136,136,170,.5);opacity:.45;background:linear-gradient(to right,rgba(136,136,170,.08),var(--bg2) 30%)}
+.ti[data-status="closed"]{opacity:.4;background:rgba(136,136,170,.06);border-radius:6px;padding-left:8px;padding-right:8px;border-left:3px solid #8888aa}
+.jcard.status-closed .jtitle{text-decoration:line-through;color:var(--mt)}
 /* HISTORY */
 .history-list{display:flex;flex-direction:column;gap:8px}
 .hi{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:all .2s}
@@ -134,6 +139,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <div class="lc"><span class="lc-dot applied"></span><span>Applied:</span><strong id="cnt-applied">0</strong></div>
 <div class="lc"><span class="lc-dot process"></span><span>In Process:</span><strong id="cnt-process">0</strong></div>
 <div class="lc"><span class="lc-dot no"></span><span>Not Interested:</span><strong id="cnt-no">0</strong></div>
+<div class="lc"><span class="lc-dot" style="background:#8888aa"></span><span>Job Closed:</span><strong id="cnt-closed">0</strong></div>
 </div>
 </div>
 <nav>
@@ -152,9 +158,9 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <p class="sdesc">Top 3 to apply to right now. Highest paying, fastest start, verified links.</p>
 <div class="today">
 <h3>Apply to These First</h3>
-<div class="ti" data-id="j1"><div class="trank">1</div><div class="ti-info"><h4>Alignerr — Voice Actor French Speakers <span class="pg">$170–$200/hr</span></h4><p>Top paying voice role. Record French samples from home. No degree. Your Fifine K688 + Maono setup is exactly what they need.</p><a class="ta" href="https://www.alignerr.com/jobs/3bc4f9b3-6144-44cf-97ab-4d41206e3680" target="_blank">Apply on Alignerr</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j1','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j1','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j1','no')">Not Interested</button></div></div></div>
-<div class="ti" data-id="j3"><div class="trank">2</div><div class="ti-info"><h4>Welo Data — French Canadian Talent Hub <span class="pg">Project-based</span></h4><p>Verified working signup form on jobs.lever.co/weloglobal. Submit profile, get matched to French Canadian projects when they appear. Talent pool only - not a specific job today.</p><a class="ta" href="https://jobs.lever.co/weloglobal/21e7cf46-c096-479a-8818-cabcf6768b33" target="_blank">Apply on Welo Global</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j3','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j3','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j3','no')">Not Interested</button></div></div></div>
-<div class="ti" data-id="j4"><div class="trank">3</div><div class="ti-info"><h4>Outlier AI — French Language Expert <span class="pg">Up to $25/hr</span></h4><p>Rate AI outputs in French. Work your own schedule. Paid weekly. Verified live opportunities page.</p><a class="ta" href="https://outlier.ai/languages/fr-fr" target="_blank">Apply on Outlier</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j4','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j4','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j4','no')">Not Interested</button></div></div></div>
+<div class="ti" data-id="j1"><div class="trank">1</div><div class="ti-info"><h4>Alignerr — Voice Actor French Speakers <span class="pg">$170–$200/hr</span></h4><p>Top paying voice role. Record French samples from home. No degree. Your Fifine K688 + Maono setup is exactly what they need.</p><a class="ta" href="https://www.alignerr.com/jobs/3bc4f9b3-6144-44cf-97ab-4d41206e3680" target="_blank">Apply on Alignerr</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j1','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j1','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j1','no')">Not Interested</button><button class="sbtn closed-btn" onclick="setStatus('j1','closed')">Job Closed</button></div></div></div>
+<div class="ti" data-id="j3"><div class="trank">2</div><div class="ti-info"><h4>Welo Data — French Canadian Talent Hub <span class="pg">Project-based</span></h4><p>Verified working signup form on jobs.lever.co/weloglobal. Submit profile, get matched to French Canadian projects when they appear. Talent pool only - not a specific job today.</p><a class="ta" href="https://jobs.lever.co/weloglobal/21e7cf46-c096-479a-8818-cabcf6768b33" target="_blank">Apply on Welo Global</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j3','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j3','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j3','no')">Not Interested</button><button class="sbtn closed-btn" onclick="setStatus('j3','closed')">Job Closed</button></div></div></div>
+<div class="ti" data-id="j4"><div class="trank">3</div><div class="ti-info"><h4>Outlier AI — French Language Expert <span class="pg">Up to $25/hr</span></h4><p>Rate AI outputs in French. Work your own schedule. Paid weekly. Verified live opportunities page.</p><a class="ta" href="https://outlier.ai/languages/fr-fr" target="_blank">Apply on Outlier</a><div class="ti-status"><span class="lbl">Status:</span><button class="sbtn applied-btn" onclick="setStatus('j4','applied')">Applied</button><button class="sbtn process-btn" onclick="setStatus('j4','process')">In Process</button><button class="sbtn no-btn" onclick="setStatus('j4','no')">Not Interested</button><button class="sbtn closed-btn" onclick="setStatus('j4','closed')">Job Closed</button></div></div></div>
 </div>
 </section>
 
@@ -178,6 +184,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j1','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j1','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j1','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j1','closed')">Job Closed</button>
 </div>
 <div class="jco">Alignerr</div>
 <div class="jmeta"><span class="jm">Hourly Contract</span><span class="jm">Remote - Canada</span><span class="jm">Flexible</span><span class="jm">No degree</span></div>
@@ -204,6 +211,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j2','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j2','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j2','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j2','closed')">Job Closed</button>
 </div>
 <div class="jco">Alignerr</div>
 <div class="jmeta"><span class="jm">Hourly Contract</span><span class="jm">Remote</span><span class="jm">Flexible</span><span class="jm">No degree</span></div>
@@ -230,6 +238,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j3','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j3','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j3','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j3','closed')">Job Closed</button>
 </div>
 <div class="jco">Welo Global (Welocalize Freelance Network)</div>
 <div class="jmeta"><span class="jm">Talent Network</span><span class="jm">Remote - Canada</span><span class="jm">Project-based</span><span class="jm">No degree</span></div>
@@ -256,6 +265,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j4','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j4','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j4','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j4','closed')">Job Closed</button>
 </div>
 <div class="jco">Outlier AI</div>
 <div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Your schedule</span><span class="jm">Paid weekly</span></div>
@@ -282,6 +292,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j6','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j6','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j6','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j6','closed')">Job Closed</button>
 </div>
 <div class="jco">DataAnnotation.tech</div>
 <div class="jmeta"><span class="jm">$25+/hr</span><span class="jm">Remote</span><span class="jm">Your schedule</span></div>
@@ -308,6 +319,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j8','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j8','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j8','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j8','closed')">Job Closed</button>
 </div>
 <div class="jco">Rev.com</div>
 <div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Pick your work</span><span class="jm">No experience</span></div>
@@ -334,6 +346,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j9','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j9','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j9','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j9','closed')">Job Closed</button>
 </div>
 <div class="jco">GoTranscript</div>
 <div class="jmeta"><span class="jm">Freelance</span><span class="jm">Remote</span><span class="jm">Weekly pay</span><span class="jm">No experience</span></div>
@@ -360,6 +373,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j10','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j10','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j10','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j10','closed')">Job Closed</button>
 </div>
 <div class="jco">Appen Global</div>
 <div class="jmeta"><span class="jm">Multiple roles</span><span class="jm">Remote</span><span class="jm">Project-based</span></div>
@@ -386,6 +400,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j11','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j11','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j11','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j11','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork Marketplace</div>
 <div class="jmeta"><span class="jm">Browse jobs</span><span class="jm">Logged in</span><span class="jm">53 connects</span></div>
@@ -412,6 +427,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('j12','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('j12','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('j12','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('j12','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork Marketplace</div>
 <div class="jmeta"><span class="jm">Browse jobs</span><span class="jm">Logged in</span><span class="jm">Multiple categories</span></div>
@@ -439,6 +455,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('e1','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('e1','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('e1','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('e1','closed')">Job Closed</button>
 </div>
 <div class="jco">Mercor (via LinkedIn alert)</div>
 <div class="jmeta"><span class="jm">Voice-over</span><span class="jm">Remote Canada</span><span class="jm">Top pay</span><span class="jm">No degree</span></div>
@@ -465,6 +482,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('e2','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('e2','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('e2','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('e2','closed')">Job Closed</button>
 </div>
 <div class="jco">Kym L. (via Voices.com)</div>
 <div class="jmeta"><span class="jm">Voice-over</span><span class="jm">Remote</span><span class="jm">Deadline Jun 4</span><span class="jm">40% VoiceMatch</span></div>
@@ -491,6 +509,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('e3','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('e3','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('e3','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('e3','closed')">Job Closed</button>
 </div>
 <div class="jco">Crossing Hurdles (via LinkedIn alert)</div>
 <div class="jmeta"><span class="jm">Remote Canada</span><span class="jm">Content review</span><span class="jm">$35/hr top</span></div>
@@ -517,6 +536,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('e4','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('e4','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('e4','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('e4','closed')">Job Closed</button>
 </div>
 <div class="jco">Crossing Hurdles</div>
 <div class="jmeta"><span class="jm">Remote Canada</span><span class="jm">Content safety</span><span class="jm">$35/hr top</span></div>
@@ -543,6 +563,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('e5','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('e5','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('e5','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('e5','closed')">Job Closed</button>
 </div>
 <div class="jco">PDF Company (via Twine)</div>
 <div class="jmeta"><span class="jm">Junior</span><span class="jm">Remote</span><span class="jm">Scriptwriting only - NO on-camera</span></div>
@@ -569,6 +590,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('e6','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('e6','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('e6','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('e6','closed')">Job Closed</button>
 </div>
 <div class="jco">Mindrift</div>
 <div class="jmeta"><span class="jm">Part-time</span><span class="jm">Remote</span><span class="jm">AI evaluation</span></div>
@@ -595,6 +617,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('e7','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('e7','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('e7','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('e7','closed')">Job Closed</button>
 </div>
 <div class="jco">Jobright.ai</div>
 <div class="jmeta"><span class="jm">Remote Canada</span><span class="jm">Data annotation</span></div>
@@ -622,6 +645,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('u1','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('u1','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('u1','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('u1','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork client</div>
 <div class="jmeta"><span class="jm">Fixed price</span><span class="jm">Intermediate</span><span class="jm">Remote</span></div>
@@ -648,6 +672,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('u2','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('u2','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('u2','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('u2','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork client</div>
 <div class="jmeta"><span class="jm">Hourly</span><span class="jm">Intermediate</span><span class="jm"><30 hrs/week</span><span class="jm">Less than 1 month</span></div>
@@ -674,6 +699,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('u3','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('u3','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('u3','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('u3','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork client</div>
 <div class="jmeta"><span class="jm">Hourly</span><span class="jm">Intermediate</span><span class="jm">Remote</span><span class="jm">Native French preferred</span></div>
@@ -700,6 +726,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('u4','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('u4','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('u4','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('u4','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork client</div>
 <div class="jmeta"><span class="jm">Project</span><span class="jm">Intermediate</span><span class="jm">Native French</span></div>
@@ -726,6 +753,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('u5','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('u5','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('u5','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('u5','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork client</div>
 <div class="jmeta"><span class="jm">Project</span><span class="jm">Intermediate</span><span class="jm">Quebec French welcome</span></div>
@@ -752,6 +780,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('u6','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('u6','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('u6','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('u6','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork client</div>
 <div class="jmeta"><span class="jm">Project</span><span class="jm">Entry Level</span><span class="jm">Voice work</span><span class="jm">Native French</span></div>
@@ -778,6 +807,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('u7','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('u7','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('u7','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('u7','closed')">Job Closed</button>
 </div>
 <div class="jco">Upwork client</div>
 <div class="jmeta"><span class="jm">Project</span><span class="jm">Intermediate</span><span class="jm">Faceless = no camera</span></div>
@@ -805,6 +835,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('v1','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('v1','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('v1','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('v1','closed')">Job Closed</button>
 </div>
 <div class="jco">Memory T. (Client - 5.0 stars, 419 reviews)</div>
 <div class="jmeta"><span class="jm">Online Ad</span><span class="jm">French Quebecois</span><span class="jm">Male 35-54</span><span class="jm">95% VoiceMatch</span></div>
@@ -831,6 +862,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('v2','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('v2','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('v2','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('v2','closed')">Job Closed</button>
 </div>
 <div class="jco">Ashley P. (Client - 5.0 stars, 349 reviews)</div>
 <div class="jmeta"><span class="jm">Online Ad</span><span class="jm">French Quebecois</span><span class="jm">Male 35-54</span><span class="jm">73% VoiceMatch</span><span class="jm">Source-Connect</span></div>
@@ -857,6 +889,7 @@ nav a:hover{color:var(--text);border-bottom-color:var(--accent)}
 <button class="sbtn applied-btn" onclick="event.stopPropagation();setStatus('v3','applied')">Applied</button>
 <button class="sbtn process-btn" onclick="event.stopPropagation();setStatus('v3','process')">In Process</button>
 <button class="sbtn no-btn" onclick="event.stopPropagation();setStatus('v3','no')">Not Interested</button>
+<button class="sbtn closed-btn" onclick="event.stopPropagation();setStatus('v3','closed')">Job Closed</button>
 </div>
 <div class="jco">Vaish R. (Client - 5.0 stars, 1 review)</div>
 <div class="jmeta"><span class="jm">Television Ad</span><span class="jm">French Belgian</span><span class="jm">Male 35-54</span><span class="jm">79% VoiceMatch</span><span class="jm">Live Directed</span></div>
@@ -950,7 +983,7 @@ async function loadFromCloud(){
     localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
     // Reset all visual states first
     document.querySelectorAll('.jcard').forEach(c => {
-      c.classList.remove('status-applied','status-process','status-no');
+      c.classList.remove('status-applied','status-process','status-no','status-closed');
       c.querySelectorAll('.sbtn').forEach(b => b.classList.remove('active'));
     });
     document.querySelectorAll('.ti[data-id]').forEach(t => {
@@ -1026,11 +1059,12 @@ function saveStatuses(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
 function applyStatusToCard(id,status){
   const card=document.querySelector('.jcard[data-id="'+id+'"]');
   if(card){
-    card.classList.remove('status-applied','status-process','status-no');
+    card.classList.remove('status-applied','status-process','status-no','status-closed');
     card.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));
     if(status==='applied'){card.classList.add('status-applied');card.querySelectorAll('.applied-btn').forEach(b=>b.classList.add('active'));}
     if(status==='process'){card.classList.add('status-process');card.querySelectorAll('.process-btn').forEach(b=>b.classList.add('active'));}
     if(status==='no'){card.classList.add('status-no');card.querySelectorAll('.no-btn').forEach(b=>b.classList.add('active'));}
+    if(status==='closed'){card.classList.add('status-closed');card.querySelectorAll('.closed-btn').forEach(b=>b.classList.add('active'));}
   }
   const ti=document.querySelector('.ti[data-id="'+id+'"]');
   if(ti){
@@ -1039,6 +1073,7 @@ function applyStatusToCard(id,status){
     if(status==='applied'){ti.querySelectorAll('.applied-btn').forEach(b=>b.classList.add('active'));}
     if(status==='process'){ti.querySelectorAll('.process-btn').forEach(b=>b.classList.add('active'));}
     if(status==='no'){ti.querySelectorAll('.no-btn').forEach(b=>b.classList.add('active'));}
+    if(status==='closed'){ti.querySelectorAll('.closed-btn').forEach(b=>b.classList.add('active'));}
   }
 }
 function setStatus(id,status){
@@ -1050,11 +1085,13 @@ function setStatus(id,status){
   scheduleCloudSave();
 }
 function updateCounters(){
-  const all=loadStatuses();let a=0,p=0,n=0;
-  Object.values(all).forEach(v=>{if(v==='applied')a++;else if(v==='process')p++;else if(v==='no')n++;});
+  const all=loadStatuses();let a=0,p=0,n=0,c=0;
+  Object.values(all).forEach(v=>{if(v==='applied')a++;else if(v==='process')p++;else if(v==='no')n++;else if(v==='closed')c++;});
   document.getElementById('cnt-applied').textContent=a;
   document.getElementById('cnt-process').textContent=p;
   document.getElementById('cnt-no').textContent=n;
+  const cc = document.getElementById('cnt-closed');
+  if(cc) cc.textContent=c;
 }
 function exportStatuses(){
   const all = loadStatuses();
