@@ -933,12 +933,36 @@ async function loadFromCloud(){
     setSyncStatus('Loading saved progress...', '#8888aa');
     const r = await fetch(RAW_PROGRESS_URL);
     if(!r.ok) throw new Error('not found');
-    const data = await r.json();
-    if(typeof data !== 'object') throw new Error('bad data');
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    Object.entries(data).forEach(([id, s]) => applyStatusToCard(id, s));
+    const cloudData = await r.json();
+    if(typeof cloudData !== 'object') throw new Error('bad data');
+    const localData = loadStatuses();
+    const cloudCount = Object.keys(cloudData).length;
+    const localCount = Object.keys(localData).length;
+    // CRITICAL: never overwrite local data with empty cloud
+    if (cloudCount === 0 && localCount > 0) {
+      setSyncStatus('Backing up local to cloud...', '#eab308');
+      saveToCloudNow();
+      return;
+    }
+    // CRITICAL: never overwrite a non-empty local with smaller cloud (merge instead)
+    const merged = Object.assign({}, cloudData, localData);
+    const mergedCount = Object.keys(merged).length;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+    // Reset all visual states first
+    document.querySelectorAll('.jcard').forEach(c => {
+      c.classList.remove('status-applied','status-process','status-no');
+      c.querySelectorAll('.sbtn').forEach(b => b.classList.remove('active'));
+    });
+    document.querySelectorAll('.ti[data-id]').forEach(t => {
+      t.removeAttribute('data-status');
+      t.querySelectorAll('.sbtn').forEach(b => b.classList.remove('active'));
+    });
+    // Apply merged data
+    Object.entries(merged).forEach(([id, s]) => applyStatusToCard(id, s));
     updateCounters();
-    setSyncStatus('✓ Synced ' + Object.keys(data).length + ' statuses', '#00d4aa');
+    // If local had stuff not in cloud, push merged back to cloud
+    if (mergedCount > cloudCount) saveToCloudNow();
+    setSyncStatus('✓ Synced ' + mergedCount + ' statuses', '#00d4aa');
     setTimeout(() => setSyncStatus('✓ Saved', '#00d4aa'), 2500);
   }catch(e){
     setSyncStatus('Offline - local only', '#eab308');
@@ -994,8 +1018,8 @@ async function saveToCloudNow(){
 }
 function scheduleCloudSave(){
   if(_saveTimer) clearTimeout(_saveTimer);
-  setSyncStatus('Saving in 2s...', '#8888aa');
-  _saveTimer = setTimeout(saveToCloudNow, 2000);
+  setSyncStatus('Saving...', '#8888aa');
+  _saveTimer = setTimeout(saveToCloudNow, 600);
 }
 function loadStatuses(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){return{};}}
 function saveStatuses(s){localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}
